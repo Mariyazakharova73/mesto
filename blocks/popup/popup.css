@@ -1,0 +1,143 @@
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  min-height: 100%;
+}
+
+.popup_opened {
+  /* display: block; */
+}
+
+.popup__form {
+  padding: 34px 36px 37px;
+  position: fixed;
+  top: 195px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 430px;
+  height: 330px;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 787px) {
+  .popup__form {
+    padding: 25px 22px;
+    width: 282px;
+    height: 322px;
+    top: 123px;
+  }
+}
+
+.popup__form-heading {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin: 0;
+}
+
+@media screen and (max-width: 787px) {
+  .popup__form-heading {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.popup__form-input {
+  border: none;
+  margin: 45px 0 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+  padding: 0;
+}
+
+@media screen and (max-width: 787px) {
+  .popup__form-input {
+    margin: 73px 0 46px;
+    gap: 26px;
+  }
+}
+
+.popup__form-info {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 10px;
+}
+
+@media screen and (max-width: 787px) {
+  .popup__form-info {
+    padding-bottom: 9px;
+  }
+}
+
+
+.popup__form-info::placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.popup__form-button {
+  width: 100%;
+  min-height: 50px;
+  background-color: #000000;
+  color: #FFFFFF;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  border-radius: 2px;
+  box-sizing: border-box;
+  transition: opacity 0.5s linear;
+  border: none;
+}
+
+@media screen and (max-width: 787px) {
+  .popup__form-button {
+    min-height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.popup__form-button:hover {
+  opacity: 0.8;
+}
+
+.popup__close {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  background-image: url(../../images/close-icon.png);
+  background-position: center;
+  position: fixed;
+  top: 155px;
+  left: 50%;
+  transform: translate(222px, 0);
+  border: none;
+  transition: opacity 0.5s linear;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+@media screen and (max-width: 787px) {
+  .popup__close {
+    width: 20px;
+    height: 20px;
+    top: 87px;
+    transform: translate(121px, 0);
+    background-size: 20px 20px;
+  }
+}
+
+.popup__close:hover {
+  opacity: 0.6;
+}
