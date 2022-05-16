@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1050px) {
   .profile__info-job {
     text-align: center;
     margin: 0 auto;

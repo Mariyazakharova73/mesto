@@ -3,13 +3,12 @@
   margin: 45px 0 48px;
   display: flex;
   flex-direction: column;
-  gap: 27px;
+  gap: 29px;
   padding: 0;
 }
 
 @media screen and (max-width: 787px) {
   .popup__form-input {
-    margin: 73px 0 46px;
-    gap: 26px;
+    margin: 74px 0 45px;
   }
 }

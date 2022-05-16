@@ -12,13 +12,14 @@
   border-radius: 2px;
   box-sizing: border-box;
   transition: opacity 0.5s linear;
+  padding: 0;
 }
 
 .profile__add-buttton:hover {
   opacity: 0.6;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1050px) {
   .profile__add-buttton {
     margin-left: 0;
     max-width: 282px;

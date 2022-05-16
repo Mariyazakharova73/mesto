@@ -1,4 +1,5 @@
 .popup__form-button {
+  max-width: 358px;
   width: 100%;
   min-height: 50px;
   background-color: #000000;
@@ -10,10 +11,12 @@
   box-sizing: border-box;
   transition: opacity 0.5s linear;
   border: none;
+  padding: 0;
 }
 
 @media screen and (max-width: 787px) {
   .popup__form-button {
+    max-width: 238px;
     min-height: 46px;
     font-size: 14px;
     line-height: 17px;
