@@ -7,9 +7,9 @@
   padding: 0;
   width: 22px;
   height: 19px;
-  transition: opacity 0.5s linear;
+  transition: opacity .5s linear;
 }
 
 .button-like:hover {
-  opacity: 0.5;
+  opacity: .5;
 }

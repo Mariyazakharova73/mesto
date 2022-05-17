@@ -9,7 +9,7 @@
   line-height: 22px;
   border-radius: 2px;
   box-sizing: border-box;
-  transition: opacity 0.5s linear;
+  transition: opacity .5s linear;
   border: none;
   padding: 0;
 }
@@ -24,5 +24,5 @@
 }
 
 .popup__form-button:hover {
-  opacity: 0.8;
+  opacity: .8;
 }
