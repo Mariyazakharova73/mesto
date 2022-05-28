@@ -12,6 +12,7 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__info-job/profile__info-job.css);
 @import url(../blocks/profile/__add-buttton/profile__add-buttton.css);
+@import url(../blocks/gallery/__button-delete/gallery__button-delete.css);
 @import url(../blocks/gallery/__cards/gallery__cards.css);
 @import url(../blocks/gallery/__card/gallery__card.css);
 @import url(../blocks/gallery/__card-image/gallery__card-imag.css);

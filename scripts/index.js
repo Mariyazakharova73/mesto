@@ -1,38 +1,45 @@
 const initialCards = [
   {
     name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
   },
   {
     name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
   },
   {
     name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
   },
   {
     name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
   },
   {
     name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
   },
   {
     name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
 ];
 const cardTemplate = document.querySelector('#card').content;
 const cardContainer = document.querySelector('.gallery__cards');
+
+function addLike(element) {
+  element.querySelector('.button-like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('button-like_active');
+  });
+}
+
 initialCards.forEach((item) => {
   const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
   cardElement.querySelector('.gallery__card-image').src = item.link;
   cardElement.querySelector('.gallery__card-heading').textContent = item.name;
+  addLike(cardElement);
   cardContainer.append(cardElement);
 });
-
 
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');
@@ -57,34 +64,36 @@ const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
 
-
-function openPopup(popupElement) { 
+function openPopup(popupElement) {
   if (popupElement === popupEditButton) {
-  popupEditButton.classList.add('popup_opened');
-  nameInput.value = userName.textContent;
-  jobInput.value = userJob.textContent;
-} else if (popupElement === popupAddButton) {
-  popupAddButton.classList.add('popup_opened');
+    popupEditButton.classList.add('popup_opened');
+    nameInput.value = userName.textContent;
+    jobInput.value = userJob.textContent;
+  } else if (popupElement === popupAddButton) {
+    popupAddButton.classList.add('popup_opened');
+  }
 }
-};
 
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
-};
+}
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
   userName.textContent = nameInput.value;
   userJob.textContent = jobInput.value;
   closePopup(popupEditButton);
-};
+}
 
 function formSubmitHandler2(evt) {
   evt.preventDefault();
-  cardImage.src = linkInput.value;
-  cardTitle.textContent = titleInput.value;
+  const newCardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
+  newCardElement.querySelector('.gallery__card-image').src = linkInput.value;
+  newCardElement.querySelector('.gallery__card-heading').textContent = titleInput.value;
+  cardContainer.prepend(newCardElement);
   closePopup(popupAddButton);
-};
+  addLike(newCardElement);
+}
 
 editButton.addEventListener('click', () => openPopup(popupEditButton));
 closeButton.addEventListener('click', () => closePopup(popupEditButton));
@@ -94,44 +103,3 @@ addButton.addEventListener('click', () => openPopup(popupAddButton));
 
 formElementEdit.addEventListener('submit', formSubmitHandler);
 formElementAdd.addEventListener('submit', formSubmitHandler2);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function addcard(cardImage, cardTitle) {
-//   const cardTemplate = document.querySelector('#card').content;//содержимое template
-//   const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true); //клонировали li
-  
-//   cardElement.querySelector('.gallery__card-image').src = cardImage; //добавили в li src
-//   cardElement.querySelector('.gallery__card-heading').textContent = cardTitle; //добавили название места;
-//   const cardContainer = document.querySelector('.gallery__cards'); //ul
-//   cardContainer.prepend(cardElement); //добавьте songElement в конец songsContainer
-// }
