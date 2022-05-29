@@ -26,28 +26,21 @@ const initialCards = [
 ];
 const cardTemplate = document.querySelector('#card').content;
 const cardsContainer = document.querySelector('.gallery__cards');
-
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-buttton');
-
 const popupProfile = document.querySelector('.popup_place_edit-button');
-const closePopupProfile = popupProfile.querySelector('.popup__close');
-
+const closingPopupProfile = popupProfile.querySelector('.popup__close');
 const popupCard = document.querySelector('.popup_place_add-button');
-const closePopupCard = popupCard.querySelector('.popup__close');
-
+const closingPopupCard = popupCard.querySelector('.popup__close');
 const popupImage = document.querySelector('.popup_place_click-image');
-const closePopupImage = popupImage.querySelector('.popup__close');
-
+const closingPopupImage = popupImage.querySelector('.popup__close');
 const cardImage = document.querySelector('.gallery__card-image');
 const cardTitle = document.querySelector('.gallery__card-heading');
-
 const formElementEdit = document.editForm;
 const nameInput = editForm.name;
 const jobInput = editForm.job;
-
 const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
@@ -114,12 +107,9 @@ function cardSubmitHandler(evt) {
 }
 
 editButton.addEventListener('click', () => openPopup(popupProfile));
-closePopupProfile.addEventListener('click', () => closePopup(popupProfile));
-
+closingPopupProfile.addEventListener('click', () => closePopup(popupProfile));
 addButton.addEventListener('click', () => openPopup(popupCard));
-closePopupCard.addEventListener('click', () => closePopup(popupCard));
-
-closePopupImage.addEventListener('click', () => closePopup(popupImage));
-
+closingPopupCard.addEventListener('click', () => closePopup(popupCard));
+closingPopupImage.addEventListener('click', () => closePopup(popupImage));
 formElementEdit.addEventListener('submit', formSubmitHandler);
 formElementAdd.addEventListener('submit', cardSubmitHandler);
