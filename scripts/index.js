@@ -25,21 +25,7 @@ const initialCards = [
   },
 ];
 const cardTemplate = document.querySelector('#card').content;
-const cardContainer = document.querySelector('.gallery__cards');
-
-function addLike(element) {
-  element.querySelector('.button-like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('button-like_active');
-  });
-}
-
-initialCards.forEach((item) => {
-  const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
-  cardElement.querySelector('.gallery__card-image').src = item.link;
-  cardElement.querySelector('.gallery__card-heading').textContent = item.name;
-  addLike(cardElement);
-  cardContainer.append(cardElement);
-});
+const cardsContainer = document.querySelector('.gallery__cards');
 
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');
@@ -48,7 +34,7 @@ const addButton = document.querySelector('.profile__add-buttton');
 
 const popupEditButton = document.querySelector('.popup_place_edit-button');
 const closeButton = popupEditButton.querySelector('.popup__close');
-const saveButton = popupEditButton.querySelectorAll('.popup__form-button');
+const saveButton = popupEditButton.querySelector('.popup__form-button');
 
 const formElementEdit = document.editForm;
 const nameInput = editForm.name;
@@ -56,13 +42,51 @@ const jobInput = editForm.job;
 
 const popupAddButton = document.querySelector('.popup_place_add-button');
 const closeButton2 = popupAddButton.querySelector('.popup__close');
-const saveButton2 = popupAddButton.querySelectorAll('.popup__form-button');
+const saveButton2 = popupAddButton.querySelector('.popup__form-button');
 
 const cardImage = document.querySelector('.gallery__card-image');
 const cardTitle = document.querySelector('.gallery__card-heading');
+
 const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
+
+// function addLike(element) {
+//   element.querySelector('.button-like').addEventListener('click', function (evt) {
+//     evt.target.classList.toggle('button-like_active');
+//   });
+// }
+
+function createCard(x, y) {
+  const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
+  cardElement.querySelector('.gallery__card-image').src = x;
+  cardElement.querySelector('.gallery__card-heading').textContent = y;
+  return cardElement;
+}
+
+// function addLike() {
+//   cardWrapper.addEventListener('click', (evt) => {
+//     const el = evt.target;
+//     if (el.classList.contains('button-like')) {
+//       el.classList.toggle('button-like_active');
+//     }
+//   });
+// }
+
+function watchCard(card) {
+  card.addEventListener('click', (evt) => {
+    const el = evt.target;
+    if (el.classList.contains('button-like')) {
+      el.classList.toggle('button-like_active');
+    }
+  });
+}
+
+initialCards.forEach((item) => {
+  const cardElement = createCard(item.link, item.name);
+  cardsContainer.append(cardElement);
+  watchCard(cardElement);
+});
 
 function openPopup(popupElement) {
   if (popupElement === popupEditButton) {
@@ -85,21 +109,18 @@ function formSubmitHandler(evt) {
   closePopup(popupEditButton);
 }
 
-function formSubmitHandler2(evt) {
+function cardSubmitHandler(evt) {
   evt.preventDefault();
-  const newCardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
-  newCardElement.querySelector('.gallery__card-image').src = linkInput.value;
-  newCardElement.querySelector('.gallery__card-heading').textContent = titleInput.value;
-  cardContainer.prepend(newCardElement);
+  const cardElement = createCard(linkInput.value, titleInput);
+  cardsContainer.prepend(cardElement);
+  watchCard(cardElement);
+  addForm.reset();
   closePopup(popupAddButton);
-  addLike(newCardElement);
 }
 
 editButton.addEventListener('click', () => openPopup(popupEditButton));
 closeButton.addEventListener('click', () => closePopup(popupEditButton));
 closeButton2.addEventListener('click', () => closePopup(popupAddButton));
-
 addButton.addEventListener('click', () => openPopup(popupAddButton));
-
 formElementEdit.addEventListener('submit', formSubmitHandler);
-formElementAdd.addEventListener('submit', formSubmitHandler2);
+formElementAdd.addEventListener('submit', cardSubmitHandler);
