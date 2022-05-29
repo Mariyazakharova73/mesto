@@ -99,7 +99,7 @@ function formSubmitHandler(evt) {
 
 function cardSubmitHandler(evt) {
   evt.preventDefault();
-  const cardElement = createCard(linkInput.value, titleInput);
+  const cardElement = createCard(linkInput.value, titleInput.value);
   cardsContainer.prepend(cardElement);
   watchCard(cardElement);
   addForm.reset();
