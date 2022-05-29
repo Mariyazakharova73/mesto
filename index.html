@@ -37,30 +37,43 @@
     <div class="popup popup_place_edit-button">
       <div class="popup__content">
         <button class="popup__close" type="button"></button>
-        <h2 class="popup__form-heading">Редактировать профиль</h2>
-        <form class="popup__form" name="editForm">
-          <input class="popup__form-input" type="text" name="name" placeholder="Имя" required>
-          <input class="popup__form-input" type="text" name="job" placeholder="О себе" required>
-          <button class="popup__form-button" type="submit">Сохранить</button>
-        </form>
+        <div class="popup__form-content">
+          <h2 class="popup__form-heading">Редактировать профиль</h2>
+          <form class="popup__form" name="editForm">
+            <input class="popup__form-input" type="text" name="name" placeholder="Имя" required>
+            <input class="popup__form-input" type="text" name="job" placeholder="О себе" required>
+            <button class="popup__form-button" type="submit">Сохранить</button>
+          </form>
+        </div>
       </div>
     </div>
     <div class="popup popup_place_add-button">
       <div class="popup__content">
         <button class="popup__close" type="button"></button>
-        <h2 class="popup__form-heading">Новое место</h2>
-        <form class="popup__form" name="addForm">
-          <input class="popup__form-input" type="text" name="title" placeholder="Название" required>
-          <input class="popup__form-input" type="text" name="link" placeholder="Ссылка на картинку" required>
-          <button class="popup__form-button" type="submit">Сохранить</button>
-        </form>
+        <div class="popup__form-content">
+          <h2 class="popup__form-heading">Новое место</h2>
+          <form class="popup__form" name="addForm">
+            <input class="popup__form-input" type="text" name="title" placeholder="Название" required>
+            <input class="popup__form-input" type="text" name="link" placeholder="Ссылка на картинку" required>
+            <button class="popup__form-button" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="popup popup_place_click-image">
+      <div class="popup__content">
+        <button class="popup__close" type="button"></button>
+        <figure class="popup__image-container">
+          <img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="Природа">
+          <figcaption class="popup__image-title">ПОДПИСЬ К КАРТИНКЕ</figcaption>
+        </figure>
       </div>
     </div>
   </div>
   <template id="card">
     <li class="gallery__card">
       <button class="gallery__button-delete" type="button"></button>
-      <img class="gallery__card-image" alt ="Природа">
+      <img class="gallery__card-image" alt="Природа">
       <div class="gallery__card-description">
         <h2 class="gallery__card-heading"></h2>
         <button class="button-like" type="button"></button>
