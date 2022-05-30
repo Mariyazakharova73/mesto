@@ -45,10 +45,10 @@ const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
 
-function createCard(x, y) {
+function createCard(link, cardName) {
   const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
-  cardElement.querySelector('.gallery__card-image').src = x;
-  cardElement.querySelector('.gallery__card-heading').textContent = y;
+  cardElement.querySelector('.gallery__card-image').src = link;
+  cardElement.querySelector('.gallery__card-heading').textContent = cardName;
   return cardElement;
 }
 
