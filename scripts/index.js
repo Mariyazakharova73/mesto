@@ -30,7 +30,7 @@ function addLike(element) {
   element.classList.toggle('button-like_active');
 }
 
-function deleteCard() {
+function deleteCard(card) {
   card.remove();
 }
 
@@ -46,7 +46,7 @@ function setCardListeners(card) {
     if (el.classList.contains('button-like')) {
       addLike(el);
     } else if (el.classList.contains('gallery__button-delete')) {
-      card.remove();
+      deleteCard(card);
     } else if (el.classList.contains('gallery__card-image')) {
       openPopup(popupImage);
       addDataPopupImage(el);
