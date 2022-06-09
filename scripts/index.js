@@ -85,7 +85,7 @@ function submitCardForm(evt) {
   const cardElement = createCard(linkInput.value, titleInput.value);
   cardsContainer.prepend(cardElement);
   setCardListeners(cardElement);
-  addForm.reset();
+  formElementAdd.reset();
   closePopup(popupCard);
 }
 

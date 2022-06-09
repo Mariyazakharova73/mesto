@@ -39,9 +39,13 @@
         <button class="popup__close" type="button"></button>
         <div class="popup__form-content">
           <h2 class="popup__form-heading">Редактировать профиль</h2>
-          <form class="popup__form" name="editForm">
-            <input class="popup__form-input" type="text" name="name" placeholder="Имя" required>
-            <input class="popup__form-input" type="text" name="job" placeholder="О себе" required>
+          <form class="popup__form" name="editForm" novalidate>
+            <input id="name-input" class="popup__form-input" type="text" name="name" placeholder="Имя" required minlength="2"
+              maxlength="40">
+              <span class="name-input-error popup__input-error"></span>
+            <input id="job-input" class="popup__form-input" type="text" name="job" placeholder="О себе" required minlength="2"
+              maxlength="200">
+              <span class="job-input-error popup__input-error"></span>
             <button class="popup__form-button" type="submit">Сохранить</button>
           </form>
         </div>
@@ -52,9 +56,11 @@
         <button class="popup__close" type="button"></button>
         <div class="popup__form-content">
           <h2 class="popup__form-heading">Новое место</h2>
-          <form class="popup__form" name="addForm">
-            <input class="popup__form-input" type="text" name="title" placeholder="Название" required>
-            <input class="popup__form-input" type="text" name="link" placeholder="Ссылка на картинку" required>
+          <form class="popup__form" name="addForm" novalidate>
+            <input id="title-input" class="popup__form-input" type="text" name="title" placeholder="Название" required>
+            <span class="title-input-error popup__input-error"></span>
+            <input id="link-input" class="popup__form-input" type="url" name="link" placeholder="Ссылка на картинку" required>
+            <span class="link-input-error popup__input-error"></span>
             <button class="popup__form-button" type="submit">Сохранить</button>
           </form>
         </div>
@@ -82,6 +88,7 @@
   </template>
   <script src="./scripts/index-photo.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
