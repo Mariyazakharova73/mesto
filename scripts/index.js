@@ -96,3 +96,18 @@ closingPopupCard.addEventListener('click', () => closePopup(popupCard));
 closingPopupImage.addEventListener('click', () => closePopup(popupImage));
 formElementEdit.addEventListener('submit', submitProfileForm);
 formElementAdd.addEventListener('submit', submitCardForm);
+
+const popup = document.querySelector('.popup');
+
+// popup.addEventListener('click', () => {
+//   const x = document.querySelector('.popup_opened');
+//   console.log(x);
+//   closePopup(x);
+// });
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    const x = document.querySelector('.popup_opened');
+    closePopup(x);
+  }
+});
