@@ -18,6 +18,7 @@ const jobInput = editForm.job;
 const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
+const popup = document.querySelector('.popup');
 
 function createCard(link, cardName) {
   const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
@@ -89,6 +90,12 @@ function submitProfileForm(evt) {
   closePopup(popupProfile);
 }
 
+function inactivateButton() {
+  const button = formElementAdd.querySelector('.popup__form-button');
+  button.setAttribute('disabled', true);
+  button.classList.add('popup__form-button_inactive');
+}
+
 function submitCardForm(evt) {
   evt.preventDefault();
   const cardElement = createCard(linkInput.value, titleInput.value);
@@ -96,6 +103,7 @@ function submitCardForm(evt) {
   setCardListeners(cardElement);
   formElementAdd.reset();
   closePopup(popupCard);
+  inactivateButton();
 }
 
 editButton.addEventListener('click', () => openPopup(popupProfile), addUserInfo());
@@ -105,8 +113,6 @@ closingPopupCard.addEventListener('click', () => closePopup(popupCard));
 closingPopupImage.addEventListener('click', () => closePopup(popupImage));
 formElementEdit.addEventListener('submit', submitProfileForm);
 formElementAdd.addEventListener('submit', submitCardForm);
-
-const popup = document.querySelector('.popup');
 
 const closePopupByOverlay = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
