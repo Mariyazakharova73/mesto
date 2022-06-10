@@ -99,11 +99,18 @@ formElementAdd.addEventListener('submit', submitCardForm);
 
 const popup = document.querySelector('.popup');
 
-// popup.addEventListener('click', () => {
-//   const x = document.querySelector('.popup_opened');
-//   console.log(x);
-//   closePopup(x);
-// });
+const closePopupByOverlay = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((popupElement) => {
+    popupElement.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popupElement);
+      }
+    });
+  });
+};
+
+closePopupByOverlay();
 
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape') {

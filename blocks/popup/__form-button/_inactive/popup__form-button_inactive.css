@@ -3,4 +3,9 @@
   border: 1px solid #000000;
   background-color: #FFFFFF;
   color: #000000;
+  opacity: 0.2;
+}
+
+.popup__form-button_inactive:hover {
+  opacity: 0.2;
 }
