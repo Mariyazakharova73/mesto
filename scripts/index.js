@@ -62,6 +62,7 @@ initialCards.forEach((item) => {
 
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function addUserInfo() {
@@ -71,7 +72,15 @@ function addUserInfo() {
 
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupByEsc);
 }
+
+const closePopupByEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    const popupElement = document.querySelector('.popup_opened');
+    closePopup(popupElement);
+  }
+};
 
 function submitProfileForm(evt) {
   evt.preventDefault();
@@ -111,10 +120,3 @@ const closePopupByOverlay = () => {
 };
 
 closePopupByOverlay();
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    const x = document.querySelector('.popup_opened');
-    closePopup(x);
-  }
-});

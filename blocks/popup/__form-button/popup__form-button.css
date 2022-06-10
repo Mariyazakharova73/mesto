@@ -13,7 +13,7 @@
   border: none;
 }
 
-@media screen and (max-width: 787px) {
+@media screen and (max-width: 767px) {
   .popup__form-button {
     max-width: 238px;
     min-height: 46px;
