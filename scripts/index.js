@@ -18,7 +18,6 @@ const jobInput = editForm.job;
 const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
-const popup = document.querySelector('.popup');
 
 function createCard(link, cardName) {
   const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
@@ -106,7 +105,9 @@ function submitCardForm(evt) {
   inactivateButton();
 }
 
-editButton.addEventListener('click', () => openPopup(popupProfile), addUserInfo());
+editButton.addEventListener('click', () => {
+  openPopup(popupProfile); addUserInfo();
+});
 closingPopupProfile.addEventListener('click', () => closePopup(popupProfile));
 addButton.addEventListener('click', () => openPopup(popupCard));
 closingPopupCard.addEventListener('click', () => closePopup(popupCard));
@@ -117,7 +118,7 @@ formElementAdd.addEventListener('submit', submitCardForm);
 const closePopupByOverlay = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupElement) => {
-    popupElement.addEventListener('click', (evt) => {
+    popupElement.addEventListener('mousedown', (evt) => {
       if (evt.target.classList.contains('popup_opened')) {
         closePopup(popupElement);
       }
