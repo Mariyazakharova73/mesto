@@ -17,13 +17,41 @@ const titleInput = addForm.title;
 const linkInput = addForm.link;
 const closeButtons = document.querySelectorAll('.popup__close');
 
-function createCard(link, cardName) {
-  const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
-  cardElement.querySelector('.gallery__card-image').src = link;
-  cardElement.querySelector('.gallery__card-image').alt = cardName;
-  cardElement.querySelector('.gallery__card-heading').textContent = cardName;
-  return cardElement;
+class Card {
+  constructor(name, link) {
+    this._name = name;
+    this._link = link;
+  }
+  _getTemplate() {
+    const cardElement = document.querySelector('.card-template').content.querySelector('.gallery__card').cloneNode(true);
+    return cardElement;
+  }
+  generateCard() {
+    this._element = this._getTemplate();
+    this._element.querySelector('.gallery__card-image').src = this._link;
+    this._element.querySelector('.gallery__card-image').alt = this._name;
+    this._element.querySelector('.gallery__card-heading').textContent = this._name;
+    return this._element;
+  }
 }
+
+initialCards.forEach((item) => {
+  // Создадим экземпляр карточки
+  const card = new Card(item.name, item.link);
+  // Создаём карточку и возвращаем наружу
+  const cardElement = card.generateCard();
+  // Добавляем в DOM
+  cardsContainer.append(cardElement);
+  setCardListeners(cardElement);
+});
+
+// function createCard(link, cardName) {
+//   const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
+//   cardElement.querySelector('.gallery__card-image').src = link;
+//   cardElement.querySelector('.gallery__card-image').alt = cardName;
+//   cardElement.querySelector('.gallery__card-heading').textContent = cardName;
+//   return cardElement;
+// }
 
 function addLike(element) {
   element.classList.toggle('button-like_active');
@@ -55,11 +83,11 @@ function setCardListeners(card) {
   });
 }
 
-initialCards.forEach((item) => {
-  const cardElement = createCard(item.link, item.name);
-  cardsContainer.append(cardElement);
-  setCardListeners(cardElement);
-});
+// initialCards.forEach((item) => {
+//   const cardElement = createCard(item.link, item.name);
+//   cardsContainer.append(cardElement);
+//   setCardListeners(cardElement);
+// });
 
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
@@ -133,5 +161,3 @@ const closePopupByOverlay = () => {
 };
 
 closePopupByOverlay();
-
-test test
