@@ -37,16 +37,30 @@ class Card {
     return this._element;
   }
 
+  _deleteCard() {//li gallery__card
+    this._element.remove();
+  }
+
+  _addLike() {//button-like
+    this._element.querySelector('.button-like').classList.toggle('button-like_active');
+  }
+
+  _addDataPopupImage() {//gallery__card-image
+    popupImage.querySelector('.popup__image').src = this._link;
+    popupImage.querySelector('.popup__image').alt = this._name;
+    popupImage.querySelector('.popup__image-title').textContent = this._name;
+  }
+
   _setCardListeners() {
     this._element.addEventListener('click', (evt) => {
       const el = evt.target;
       if (el.classList.contains('button-like')) {
-        addLike(el);
+        this._addLike();
       } else if (el.classList.contains('gallery__button-delete')) {
-        deleteCard(this._element);
+        this._deleteCard();
       } else if (el.classList.contains('gallery__card-image')) {
         openPopup(popupImage);
-        addDataPopupImage(el);
+        this._addDataPopupImage();
       }
     });
   }
@@ -84,21 +98,21 @@ initialCards.forEach((item) => {
 //   return cardElement;
 // }
 
-function addLike(element) {
-  element.classList.toggle('button-like_active');
-}
+// function addLike(element) {
+//   element.classList.toggle('button-like_active');
+// }
 
-function deleteCard(card) {
-  card.remove();
-}
+// function deleteCard(card) {
+//   card.remove();
+// }
 
-function addDataPopupImage(element) {
-  popupImage.querySelector('.popup__image').src = element.src;
-  const parent = element.closest('.gallery__card');
-  const title = parent.querySelector('.gallery__card-heading').textContent;
-  popupImage.querySelector('.popup__image').alt = title;
-  popupImage.querySelector('.popup__image-title').textContent = title;
-}
+// function addDataPopupImage(element) {
+//   popupImage.querySelector('.popup__image').src = element.src;
+//   const parent = element.closest('.gallery__card');
+//   const title = parent.querySelector('.gallery__card-heading').textContent;
+//   popupImage.querySelector('.popup__image').alt = title;
+//   popupImage.querySelector('.popup__image-title').textContent = title;
+// }
 
 // initialCards.forEach((item) => {
 //   const cardElement = createCard(item.link, item.name);
