@@ -22,6 +22,7 @@ const linkInput = addForm.link;
 function createCard(link, cardName) {
   const cardElement = cardTemplate.querySelector('.gallery__card').cloneNode(true);
   cardElement.querySelector('.gallery__card-image').src = link;
+  cardElement.querySelector('.gallery__card-image').alt = cardName;
   cardElement.querySelector('.gallery__card-heading').textContent = cardName;
   return cardElement;
 }
@@ -37,7 +38,9 @@ function deleteCard(card) {
 function addDataPopupImage(element) {
   popupImage.querySelector('.popup__image').src = element.src;
   const parent = element.closest('.gallery__card');
-  popupImage.querySelector('.popup__image-title').textContent = parent.querySelector('.gallery__card-heading').textContent;
+  const title = parent.querySelector('.gallery__card-heading').textContent;
+  popupImage.querySelector('.popup__image').alt = title;
+  popupImage.querySelector('.popup__image-title').textContent = title;
 }
 
 function setCardListeners(card) {
@@ -106,7 +109,8 @@ function submitCardForm(evt) {
 }
 
 editButton.addEventListener('click', () => {
-  openPopup(popupProfile); addUserInfo();
+  openPopup(popupProfile);
+  addUserInfo();
 });
 closingPopupProfile.addEventListener('click', () => closePopup(popupProfile));
 addButton.addEventListener('click', () => openPopup(popupCard));
