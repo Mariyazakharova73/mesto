@@ -143,9 +143,15 @@ function inactivateButton() {
 
 function submitCardForm(evt) {
   evt.preventDefault();
-  const cardElement = createCard(linkInput.value, titleInput.value);
+  const obj = {
+    name: titleInput.value,
+    link: linkInput.value,
+  };
+  const card = new Card(obj, '.card-template');
+  const cardElement = card.generateCard();
+  // const cardElement = createCard(linkInput.value, titleInput.value);
   cardsContainer.prepend(cardElement);
-  setCardListeners(cardElement);
+  // setCardListeners(cardElement);
   formElementAdd.reset();
   closePopup(popupCard);
   inactivateButton();
