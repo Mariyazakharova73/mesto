@@ -4,7 +4,7 @@ export class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
-    this._cardSelector = cardSelector; // записали селектор в приватное поле
+    this._cardSelector = cardSelector;
   }
 
   _getTemplate() {
@@ -13,7 +13,7 @@ export class Card {
   }
   generateCard() {
     this._element = this._getTemplate();
-    this._setCardListeners(); // добавим обработчики
+    this._setCardListeners();
     this._element.querySelector('.gallery__card-image').src = this._link;
     this._element.querySelector('.gallery__card-image').alt = this._name;
     this._element.querySelector('.gallery__card-heading').textContent = this._name;
