@@ -1,5 +1,6 @@
 import {Card} from './Card.js';
-const cardTemplate = document.querySelector('#card').content;
+import {initialCards} from './index-photo.js';
+// const cardTemplate = document.querySelector('#card').content;
 const cardsContainer = document.querySelector('.gallery__cards');
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');
@@ -9,10 +10,7 @@ const popupProfile = document.querySelector('.popup_place_edit-button');
 const popupCard = document.querySelector('.popup_place_add-button');
 // const popupImage = document.querySelector('.popup_place_click-image');
 // const cardImage = document.querySelector('.gallery__card-image');
-// console.log(cardImage);
 // const cardTitle = document.querySelector('.gallery__card-heading');
-// console.log(cardTitle);
-
 const formElementEdit = document.editForm;
 const nameInput = editForm.name;
 const jobInput = editForm.job;
@@ -20,8 +18,6 @@ const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
 const closeButtons = document.querySelectorAll('.popup__close');
-console.log(closeButtons);
-
 // function setCardListeners(card) {
 //   card.addEventListener('click', (evt) => {
 //     const el = evt.target;
@@ -76,7 +72,7 @@ initialCards.forEach((item) => {
 //   setCardListeners(cardElement);
 // });
 
-function openPopup(popupElement) {
+export function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupByEsc);
 }
@@ -137,16 +133,16 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 
-// // Открыть попап карточки
-let cardImageList = document.querySelectorAll('.gallery__card-image');
-console.log(cardImageList);
-let popupImage = document.querySelector('.popup_place_click-image');
-console.log(popupImage);
-cardImageList.forEach((image) => {
-  image.addEventListener('click', () => {
-    openPopup(popupImage);
-  });
-});
+// // // Открыть попап карточки
+// let cardImageList = document.querySelectorAll('.gallery__card-image');
+// console.log(cardImageList);
+// let popupImage = document.querySelector('.popup_place_click-image');
+// console.log(popupImage);
+// cardImageList.forEach((image) => {
+//   image.addEventListener('click', () => {
+//     openPopup(popupImage);
+//   });
+// });
 
 addButton.addEventListener('click', () => openPopup(popupCard));
 

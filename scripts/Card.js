@@ -1,3 +1,4 @@
+import { openPopup } from './index.js';
 const popupImage = document.querySelector('.popup_place_click-image');
 export class Card {
   constructor(data, cardSelector) {
@@ -36,10 +37,9 @@ export class Card {
     popupImage.querySelector('.popup__image-title').textContent = this._name;
   }
 
-  // _openPopup() {
-  //   popupImage.classList.add('popup_opened');
-  //   // document.addEventListener('keydown', closePopupByEsc);
-  // }
+  _handleOpenPopup() {
+    openPopup(popupImage);
+  }
 
   _setCardListeners() {
     this._element.addEventListener('click', (evt) => {
@@ -49,7 +49,7 @@ export class Card {
       } else if (el.classList.contains('gallery__button-delete')) {
         this._deleteCard();
       } else if (el.classList.contains('gallery__card-image')) {
-        // this._openPopup()
+        this._handleOpenPopup();
         this._addDataPopupImage();
       }
     });
