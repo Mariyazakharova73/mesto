@@ -9,4 +9,5 @@
 
 .gallery__card-image:hover {
   opacity: .6;
+  cursor: pointer;
 }

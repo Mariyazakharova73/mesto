@@ -2,11 +2,12 @@ import { Card } from './Card.js';
 import { initialCards } from './index-photo.js';
 import { FormValidator } from './FormValidator.js';
 export const popupImage = document.querySelector('.popup_place_click-image');
+export const imageInPopup = popupImage.querySelector('.popup__image')
 const cardsContainer = document.querySelector('.gallery__cards');
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-buttton');
+const buttonElementEdit = document.querySelector('.profile__edit-button');
+const buttonElementAdd = document.querySelector('.profile__add-buttton');
 const popupProfile = document.querySelector('.popup_place_edit-button');
 const popupCard = document.querySelector('.popup_place_add-button');
 const formElementEdit = document.editForm;
@@ -15,7 +16,7 @@ const jobInput = editForm.job;
 const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
-const closeButtons = document.querySelectorAll('.popup__close');
+const closingButtons = document.querySelectorAll('.popup__close');
 const object = {
   formSelector: '.popup__form',
   inputSelector: '.popup__form-input',
@@ -89,17 +90,17 @@ function submitCardForm(evt) {
   inactivateButton();
 }
 
-editButton.addEventListener('click', () => {
+buttonElementEdit.addEventListener('click', () => {
   openPopup(popupProfile);
   addUserInfo();
 });
 
-closeButtons.forEach((button) => {
+closingButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
 
-addButton.addEventListener('click', () => openPopup(popupCard));
+buttonElementAdd.addEventListener('click', () => openPopup(popupCard));
 formElementEdit.addEventListener('submit', submitProfileForm);
 formElementAdd.addEventListener('submit', submitCardForm);
 
