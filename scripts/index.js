@@ -2,7 +2,7 @@ import { Card } from './Card.js';
 import { initialCards } from './index-photo.js';
 import { FormValidator } from './FormValidator.js';
 export const popupImage = document.querySelector('.popup_place_click-image');
-export const imageInPopup = popupImage.querySelector('.popup__image')
+export const imageInPopup = popupImage.querySelector('.popup__image');
 const cardsContainer = document.querySelector('.gallery__cards');
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');
@@ -17,7 +17,7 @@ const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
 const closingButtons = document.querySelectorAll('.popup__close');
-const object = {
+const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__form-input',
   submitButtonSelector: '.popup__form-button',
@@ -25,15 +25,19 @@ const object = {
   inputErrorClass: 'popup__form-input_type_error',
   errorClass: 'popup__input-error_active',
 };
-const validationForEditForm = new FormValidator(object, editForm);
+const validationForEditForm = new FormValidator(config, editForm);
 validationForEditForm.enableValidation();
-const validationForAddForm = new FormValidator(object, addForm);
+const validationForAddForm = new FormValidator(config, addForm);
 validationForAddForm.enableValidation();
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '.card-template');
+function createCard(item, template) {
+  const card = new Card(item, template);
   const cardElement = card.generateCard();
-  cardsContainer.append(cardElement);
+  return cardElement;
+}
+
+initialCards.forEach((item) => {
+  cardsContainer.append(createCard(item, '.card-template'));
 });
 
 export function openPopup(popupElement) {
@@ -49,11 +53,6 @@ function addUserInfo() {
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEsc);
-  if (popupElement === popupProfile) {
-    validationForEditForm.resertValidation();
-  } else if (popupElement === popupCard) {
-    validationForAddForm.resertValidation();
-  }
 }
 
 const closePopupByEsc = (evt) => {
@@ -82,9 +81,7 @@ function submitCardForm(evt) {
     name: titleInput.value,
     link: linkInput.value,
   };
-  const card = new Card(obj, '.card-template');
-  const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
+  cardsContainer.prepend(createCard(obj, '.card-template'));
   formElementAdd.reset();
   closePopup(popupCard);
   inactivateButton();
@@ -93,14 +90,20 @@ function submitCardForm(evt) {
 buttonElementEdit.addEventListener('click', () => {
   openPopup(popupProfile);
   addUserInfo();
+  validationForEditForm.resertValidation();
 });
+
+buttonElementAdd.addEventListener('click', () => {
+  openPopup(popupCard);
+  validationForAddForm.resertValidation();
+});
+
 
 closingButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
 
-buttonElementAdd.addEventListener('click', () => openPopup(popupCard));
 formElementEdit.addEventListener('submit', submitProfileForm);
 formElementAdd.addEventListener('submit', submitCardForm);
 
@@ -108,7 +111,8 @@ const closePopupByOverlay = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupElement) => {
     popupElement.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
+      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('.popup__close')) {
+        console.log(evt.target)
         closePopup(popupElement);
       }
     });
