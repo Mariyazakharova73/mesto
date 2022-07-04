@@ -1,6 +1,7 @@
-import {Card} from './Card.js';
-import {initialCards} from './index-photo.js';
-// import {enableValidation} from './validate.js';
+import { Card } from './Card.js';
+import { initialCards } from './index-photo.js';
+import { FormValidator } from './FormValidator.js';
+export const popupImage = document.querySelector('.popup_place_click-image');
 const cardsContainer = document.querySelector('.gallery__cards');
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');
@@ -98,3 +99,29 @@ const closePopupByOverlay = () => {
 
 closePopupByOverlay();
 
+const form1 = new FormValidator(
+  {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__form-input',
+    submitButtonSelector: '.popup__form-button',
+    inactiveButtonClass: 'popup__form-button_inactive',
+    inputErrorClass: 'popup__form-input_type_error',
+    errorClass: 'popup__input-error_active',
+  },
+  editForm
+);
+
+const test1 = form1.enableValidation();
+
+const form2 = new FormValidator(
+  {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__form-input',
+    submitButtonSelector: '.popup__form-button',
+    inactiveButtonClass: 'popup__form-button_inactive',
+    inputErrorClass: 'popup__form-input_type_error',
+    errorClass: 'popup__input-error_active',
+  },
+  addForm
+);
+const test2 = form2.enableValidation();

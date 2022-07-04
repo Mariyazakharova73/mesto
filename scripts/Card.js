@@ -1,5 +1,5 @@
-import { openPopup } from './index.js';
-const popupImage = document.querySelector('.popup_place_click-image');
+import { openPopup, popupImage } from './index.js';
+
 export class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
@@ -21,17 +21,14 @@ export class Card {
   }
 
   _deleteCard() {
-    //li gallery__card
     this._element.remove();
   }
 
   _addLike() {
-    //button-like
     this._element.querySelector('.button-like').classList.toggle('button-like_active');
   }
 
   _addDataPopupImage() {
-    //gallery__card-image
     popupImage.querySelector('.popup__image').src = this._link;
     popupImage.querySelector('.popup__image').alt = this._name;
     popupImage.querySelector('.popup__image-title').textContent = this._name;
