@@ -48,7 +48,11 @@ function addUserInfo() {
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEsc);
-  validationForAddForm.resertValidation();
+  if (popupElement === popupProfile) {
+    validationForEditForm.resertValidation();
+  } else if (popupElement === popupCard) {
+    validationForAddForm.resertValidation();
+  }
 }
 
 const closePopupByEsc = (evt) => {
