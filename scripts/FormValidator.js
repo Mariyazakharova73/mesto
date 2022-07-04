@@ -11,7 +11,11 @@ export class FormValidator {
     this._button = this._form.querySelector(this._submitButtonSelector);
   }
 
- 
+  resertValidation() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
 
   _showInputError = (inputElement, errorMessage) => {
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
@@ -52,8 +56,6 @@ export class FormValidator {
   };
 
   _setEventListeners = () => {
-    // const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    // const buttonElement = this._form.querySelector(this._submitButtonSelector);
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
