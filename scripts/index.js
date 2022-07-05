@@ -16,7 +16,6 @@ const jobInput = editForm.job;
 const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
-const closingButtons = document.querySelectorAll('.popup__close');
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__form-input',
@@ -98,12 +97,6 @@ buttonElementAdd.addEventListener('click', () => {
   validationForAddForm.resertValidation();
 });
 
-
-closingButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
-
 formElementEdit.addEventListener('submit', submitProfileForm);
 formElementAdd.addEventListener('submit', submitCardForm);
 
@@ -111,8 +104,7 @@ const closePopupByOverlay = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupElement) => {
     popupElement.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('.popup__close')) {
-        console.log(evt.target)
+      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
         closePopup(popupElement);
       }
     });
