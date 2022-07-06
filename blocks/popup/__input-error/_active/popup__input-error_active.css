@@ -3,4 +3,12 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
+  display: block;
+  position: absolute;
+  top: 31px;
+  left: 0;
+}
+
+.popup__input-error_active:last-of-type {
+  top: 95px
 }

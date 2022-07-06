@@ -1,4 +1,4 @@
-import { openPopup, popupImage, imageInPopup } from './index.js';
+import { openPopup, popupImage, imageInPopup, popupImageTitle } from './index.js';
 
 export class Card {
   constructor(data, cardSelector) {
@@ -32,7 +32,7 @@ export class Card {
   _addDataPopupImage() {
     imageInPopup.src = this._link;
     imageInPopup.alt = this._name;
-    popupImage.querySelector('.popup__image-title').textContent = this._name;
+    popupImageTitle.textContent = this._name;
   }
 
   _handleOpenPopup() {

@@ -3,6 +3,7 @@ import { initialCards } from './index-photo.js';
 import { FormValidator } from './FormValidator.js';
 export const popupImage = document.querySelector('.popup_place_click-image');
 export const imageInPopup = popupImage.querySelector('.popup__image');
+export const popupImageTitle = popupImage.querySelector('.popup__image-title')
 const cardsContainer = document.querySelector('.gallery__cards');
 const userName = document.querySelector('.profile__info-name');
 const userJob = document.querySelector('.profile__info-job');

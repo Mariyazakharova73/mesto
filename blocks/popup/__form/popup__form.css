@@ -1,15 +1,16 @@
 .popup__form {
   border: none;
-  margin-top: 46px;
+  margin-top: 43px;
   padding: 0;
-  min-height: 182px;
+  min-height: 183px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  position: relative;
 }
 
 @media screen and (max-width: 767px) {
   .popup__form {
-    margin-top: 74px;
+    margin-top: 70px;
+    min-height: 180px;
   }
 }
