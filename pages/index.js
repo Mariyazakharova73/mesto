@@ -1,7 +1,8 @@
-import { initialCards, config, cardsContainer, buttonElementEdit, buttonElementAdd, formElementEdit, formElementAdd, popupProfile, popupCard } from '../utils/constants.js';
-import { createCard, openPopup, submitProfileForm, submitCardForm, closePopupByOverlay, addUserInfo } from '../utils/utils.js';
+import { initialCards, config, cardsContainer, buttonElementEdit, buttonElementAdd, formElementEdit, formElementAdd } from '../utils/constants.js';
+import { createCard, submitProfileForm, submitCardForm, addUserInfo } from '../utils/utils.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 
 const validationForEditForm = new FormValidator(config, editForm);
 validationForEditForm.enableValidation();
@@ -22,21 +23,29 @@ const galleryCards = new Section(
   },
   '.gallery__cards'
 );
-
 galleryCards.renderItems();
 
+const popupProfile = new Popup('.popup_place_edit-button');
+const popupCard = new Popup('.popup_place_add-button');
+//const popupImage = new Popup('.popup_place_click-image');
+
+popupProfile.setEventListeners();
+popupCard.setEventListeners();
+//popupImage.setEventListeners();
+
 buttonElementEdit.addEventListener('click', () => {
-  openPopup(popupProfile);
+  popupProfile.open()
   addUserInfo();
   validationForEditForm.resertValidation();
 });
 
 buttonElementAdd.addEventListener('click', () => {
-  openPopup(popupCard);
+  popupCard.open()
   validationForAddForm.resertValidation();
 });
+
+
 
 formElementEdit.addEventListener('submit', submitProfileForm);
 formElementAdd.addEventListener('submit', submitCardForm);
 
-closePopupByOverlay();

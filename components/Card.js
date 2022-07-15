@@ -1,5 +1,9 @@
-import { popupImage, imageInPopup, popupImageTitle } from '../utils/constants.js';
-import { openPopup } from '../utils/utils.js';
+import { imageInPopup, popupImageTitle } from '../utils/constants.js';
+//import { openPopup } from '../utils/utils.js';
+import Popup from '../components/Popup.js';
+
+const popupImage = new Popup('.popup_place_click-image');
+popupImage.setEventListeners();
 
 export class Card {
   constructor(data, cardSelector) {
@@ -12,6 +16,7 @@ export class Card {
     const cardElement = document.querySelector(this._cardSelector).content.querySelector('.gallery__card').cloneNode(true);
     return cardElement;
   }
+  
   generateCard() {
     this._element = this._getTemplate();
     this._setCardListeners();
@@ -36,9 +41,9 @@ export class Card {
     popupImageTitle.textContent = this._name;
   }
 
-  _handleOpenPopup() {
-    openPopup(popupImage);
-  }
+  // _handleOpenPopup() {
+  //   openPopup(popupImage);
+  // }
 
   _setCardListeners() {
     this._element.addEventListener('click', (evt) => {
@@ -48,7 +53,7 @@ export class Card {
       } else if (el.classList.contains('gallery__button-delete')) {
         this._deleteCard();
       } else if (el.classList.contains('gallery__card-image')) {
-        this._handleOpenPopup();
+        popupImage.open();
         this._addDataPopupImage();
       }
     });

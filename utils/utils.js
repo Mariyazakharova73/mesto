@@ -7,33 +7,33 @@ function createCard(item, template) {
   return cardElement;
 }
 
-function openPopup(popupElement) {
-  popupElement.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupByEsc);
-}
+// function openPopup(popupElement) {
+//   popupElement.classList.add('popup_opened');
+//   document.addEventListener('keydown', closePopupByEsc);
+// }
 
 function addUserInfo() {
   nameInput.value = userName.textContent;
   jobInput.value = userJob.textContent;
 }
 
-function closePopup(popupElement) {
-  popupElement.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupByEsc);
-}
+// function closePopup(popupElement) {
+//   popupElement.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closePopupByEsc);
+// }
 
-const closePopupByEsc = (evt) => {
-  if (evt.key === 'Escape') {
-    const popupElement = document.querySelector('.popup_opened');
-    closePopup(popupElement);
-  }
-};
+// const closePopupByEsc = (evt) => {
+//   if (evt.key === 'Escape') {
+//     const popupElement = document.querySelector('.popup_opened');
+//     closePopup(popupElement);
+//   }
+// };
 
 function submitProfileForm(evt) {
   evt.preventDefault();
   userName.textContent = nameInput.value;
   userJob.textContent = jobInput.value;
-  closePopup(popupProfile);
+  //closePopup(popupProfile);
 }
 
 function inactivateButton() {
@@ -54,15 +54,15 @@ function submitCardForm(evt) {
   inactivateButton();
 }
 
-const closePopupByOverlay = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
-  popupList.forEach((popupElement) => {
-    popupElement.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
-        closePopup(popupElement);
-      }
-    });
-  });
-};
+// const closePopupByOverlay = () => {
+//   const popupList = Array.from(document.querySelectorAll('.popup'));
+//   popupList.forEach((popupElement) => {
+//     popupElement.addEventListener('mousedown', (evt) => {
+//       if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
+//         closePopup(popupElement);
+//       }
+//     });
+//   });
+// };
 
-export { createCard, openPopup, addUserInfo, closePopup, closePopupByEsc, submitProfileForm, inactivateButton, submitCardForm, closePopupByOverlay }
+export { createCard, addUserInfo, submitProfileForm, inactivateButton, submitCardForm }
