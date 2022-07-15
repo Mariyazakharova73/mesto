@@ -1,8 +1,9 @@
-import { imageInPopup, popupImageTitle } from '../utils/constants.js';
 //import { openPopup } from '../utils/utils.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import { initialCards } from '../utils/constants.js';
 
-const popupImage = new Popup('.popup_place_click-image');
+const popupImage = new PopupWithImage('.popup_place_click-image');
 popupImage.setEventListeners();
 
 export class Card {
@@ -35,11 +36,11 @@ export class Card {
     this._element.querySelector('.button-like').classList.toggle('button-like_active');
   }
 
-  _addDataPopupImage() {
-    imageInPopup.src = this._link;
-    imageInPopup.alt = this._name;
-    popupImageTitle.textContent = this._name;
-  }
+  // _addDataPopupImage() {
+  //   imageInPopup.src = this._link;
+  //   imageInPopup.alt = this._name;
+  //   popupImageTitle.textContent = this._name;
+  // }
 
   // _handleOpenPopup() {
   //   openPopup(popupImage);
@@ -53,8 +54,8 @@ export class Card {
       } else if (el.classList.contains('gallery__button-delete')) {
         this._deleteCard();
       } else if (el.classList.contains('gallery__card-image')) {
-        popupImage.open();
-        this._addDataPopupImage();
+        popupImage.open(this._link, this._name);
+        //this._addDataPopupImage();
       }
     });
   }

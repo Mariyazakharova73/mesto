@@ -3,6 +3,7 @@ import { createCard, submitProfileForm, submitCardForm, addUserInfo } from '../u
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 const validationForEditForm = new FormValidator(config, editForm);
 validationForEditForm.enableValidation();
