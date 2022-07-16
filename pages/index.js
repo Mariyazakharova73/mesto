@@ -1,5 +1,4 @@
 import { initialCards, config, cardsContainer, buttonElementEdit, buttonElementAdd, nameInput, jobInput } from '../utils/constants.js';
-import inactivateButton from '../utils/utils.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
@@ -57,7 +56,6 @@ const popupProfile = new PopupWithForm('.popup_place_edit-button', {
   handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData);
     popupProfile.close();
-    inactivateButton();
   },
 });
 popupProfile.setEventListeners();
@@ -66,7 +64,7 @@ const popupCard = new PopupWithForm('.popup_place_add-button', {
   handleFormSubmit: (formData) => {
     cardsContainer.prepend(createCard(formData, '.card-template'));
     popupCard.close();
-    inactivateButton();
+    popupCard.inactivateButton();
   },
 });
 popupCard.setEventListeners();

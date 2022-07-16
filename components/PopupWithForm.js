@@ -8,6 +8,12 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
   }
 
+  inactivateButton() {
+    const button = this._form .querySelector('.popup__form-button');
+    button.setAttribute('disabled', true);
+    button.classList.add('popup__form-button_inactive');
+  }
+
   close() {
     super.close();
     this._form.reset();
