@@ -1,5 +1,4 @@
 import Popup from './Popup.js';
-import { imageInPopup, popupImageTitle, linkInput, titleInput } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, { handleFormSubmit }) {
@@ -23,25 +22,11 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-
-    // this._formValues = {
-    //   name: titleInput.value,
-    //   link: linkInput.value,
-    // }
-    // достаём все элементы полей
     this._inputList = this._form.querySelectorAll('.popup__form-input');
-    // создаём пустой объект
     this._formValues = {};
-    // добавляем в этот объект значения всех полей
     this._inputList.forEach((input) => {
       this._formValues[input.name] = input.value;
     });
-    // возвращаем объект значений
     return this._formValues;
   }
 }
-
-//const obj = {
-  //     name: titleInput.value,
-  //     link: linkInput.value,
-  //   };

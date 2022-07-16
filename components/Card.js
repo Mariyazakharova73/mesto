@@ -1,13 +1,6 @@
-//import { openPopup } from '../utils/utils.js';
-import Popup from '../components/Popup.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import { initialCards } from '../utils/constants.js';
-
-const popupImage = new PopupWithImage('.popup_place_click-image');
-popupImage.setEventListeners();
-
-export class Card {
-  constructor(data, cardSelector) {
+export default class Card {
+  constructor(data, cardSelector, { handleCardClick }) {
+    this._handleCardClick = handleCardClick;
     this._name = data.title;
     this._link = data.link;
     this._cardSelector = cardSelector;
@@ -17,7 +10,7 @@ export class Card {
     const cardElement = document.querySelector(this._cardSelector).content.querySelector('.gallery__card').cloneNode(true);
     return cardElement;
   }
-  
+
   generateCard() {
     this._element = this._getTemplate();
     this._setCardListeners();
@@ -36,16 +29,6 @@ export class Card {
     this._element.querySelector('.button-like').classList.toggle('button-like_active');
   }
 
-  // _addDataPopupImage() {
-  //   imageInPopup.src = this._link;
-  //   imageInPopup.alt = this._name;
-  //   popupImageTitle.textContent = this._name;
-  // }
-
-  // _handleOpenPopup() {
-  //   openPopup(popupImage);
-  // }
-
   _setCardListeners() {
     this._element.addEventListener('click', (evt) => {
       const el = evt.target;
@@ -54,8 +37,7 @@ export class Card {
       } else if (el.classList.contains('gallery__button-delete')) {
         this._deleteCard();
       } else if (el.classList.contains('gallery__card-image')) {
-        popupImage.open(this._link, this._name);
-        //this._addDataPopupImage();
+        this._handleCardClick(this._link, this._name);
       }
     });
   }
