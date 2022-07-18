@@ -37,7 +37,7 @@ export default class Card {
       } else if (el.classList.contains('gallery__button-delete')) {
         this._deleteCard();
       } else if (el.classList.contains('gallery__card-image')) {
-        this._handleCardClick(this._link, this._name);
+        this._handleCardClick(this._name, this._link);
       }
     });
   }

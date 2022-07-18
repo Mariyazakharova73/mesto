@@ -9,10 +9,8 @@ import UserInfo from '../components/UserInfo.js';
 
 function createCard(item, template) {
   const card = new Card(item, template, {
-    handleCardClick: (x, y) => {
-      const popupImage = new PopupWithImage({ popupSelector: '.popup_place_click-image',});
-      popupImage.setEventListeners();
-      popupImage.open(x, y);
+    handleCardClick: (titleInPopupImage, linkInPopupImage) => {
+      popupImage.open(titleInPopupImage, linkInPopupImage);
     },
   });
   const cardElement = card.generateCard();
@@ -38,6 +36,9 @@ galleryCards.renderItems();
 
 const popup = new Popup({ popupSelector: '.popup' });
 popup.setEventListeners();
+
+const popupImage = new PopupWithImage({ popupSelector: '.popup_place_click-image' });
+popupImage.setEventListeners();
 
 buttonElementEdit.addEventListener('click', () => {
   popupProfile.open();
@@ -70,4 +71,4 @@ const popupCard = new PopupWithForm({
 });
 popupCard.setEventListeners();
 
-const userInfo = new UserInfo('.profile__info-name', '.profile__info-job');
+const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job' });
