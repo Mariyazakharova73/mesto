@@ -10,7 +10,7 @@ import UserInfo from '../components/UserInfo.js';
 function createCard(item, template) {
   const card = new Card(item, template, {
     handleCardClick: (x, y) => {
-      const popupImage = new PopupWithImage('.popup_place_click-image');
+      const popupImage = new PopupWithImage({ popupSelector: '.popup_place_click-image',});
       popupImage.setEventListeners();
       popupImage.open(x, y);
     },
@@ -36,9 +36,8 @@ const galleryCards = new Section(
 );
 galleryCards.renderItems();
 
-const popup = new Popup('.popup');
+const popup = new Popup({ popupSelector: '.popup' });
 popup.setEventListeners();
-
 
 buttonElementEdit.addEventListener('click', () => {
   popupProfile.open();
@@ -52,7 +51,8 @@ buttonElementAdd.addEventListener('click', () => {
   validationForAddForm.resertValidation();
 });
 
-const popupProfile = new PopupWithForm('.popup_place_edit-button', {
+const popupProfile = new PopupWithForm({
+  popupSelector: '.popup_place_edit-button',
   handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData);
     popupProfile.close();
@@ -60,7 +60,8 @@ const popupProfile = new PopupWithForm('.popup_place_edit-button', {
 });
 popupProfile.setEventListeners();
 
-const popupCard = new PopupWithForm('.popup_place_add-button', {
+const popupCard = new PopupWithForm({
+  popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
     cardsContainer.prepend(createCard(formData, '.card-template'));
     popupCard.close();
