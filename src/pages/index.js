@@ -1,3 +1,4 @@
+import './../pages/index.css'
 import { initialCards, config, cardsContainer, buttonElementEdit, buttonElementAdd, nameInput, jobInput } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';

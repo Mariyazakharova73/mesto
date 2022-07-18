@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./pages/index.css">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
@@ -12,11 +11,11 @@
 <body class="root">
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/header-logo.svg" alt="Логотип">
+      <img class="header__logo" src="<%=require('./images/header-logo.svg')%>" alt="Логотип">
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Аватар">
+        <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар">
         <div class="profile__info">
           <div class="profile__info-wrapper">
             <h1 class="profile__info-name">Мария Захарова</h1>
@@ -88,7 +87,6 @@
       </div>
     </li>
   </template>
-  <script type="module" src="./pages/index.js"></script>
 </body>
 
 </html>
