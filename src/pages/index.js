@@ -1,8 +1,7 @@
-import './../pages/index.css'
-import { initialCards, config, cardsContainer, buttonElementEdit, buttonElementAdd, nameInput, jobInput } from '../utils/constants.js';
+import './../pages/index.css';
+import { initialCards, config, buttonElementEdit, buttonElementAdd, nameInput, jobInput } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Card from '../components/Card.js';
@@ -35,9 +34,6 @@ const galleryCards = new Section(
 );
 galleryCards.renderItems();
 
-const popup = new Popup({ popupSelector: '.popup' });
-popup.setEventListeners();
-
 const popupImage = new PopupWithImage({ popupSelector: '.popup_place_click-image' });
 popupImage.setEventListeners();
 
@@ -65,9 +61,18 @@ popupProfile.setEventListeners();
 const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
-    cardsContainer.prepend(createCard(formData, '.card-template'));
+    const galleryWithNewCards = new Section(
+      {
+        data: [formData],
+        renderer: (cardItem) => {
+          const cardElement = createCard(cardItem, '.card-template');
+          galleryWithNewCards.setItem(cardElement);
+        },
+      },
+      '.gallery__cards'
+    );
+    galleryWithNewCards.renderItems();
     popupCard.close();
-    popupCard.inactivateButton();
   },
 });
 popupCard.setEventListeners();

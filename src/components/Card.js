@@ -30,15 +30,8 @@ export default class Card {
   }
 
   _setCardListeners() {
-    this._element.addEventListener('click', (evt) => {
-      const el = evt.target;
-      if (el.classList.contains('button-like')) {
-        this._addLike();
-      } else if (el.classList.contains('gallery__button-delete')) {
-        this._deleteCard();
-      } else if (el.classList.contains('gallery__card-image')) {
-        this._handleCardClick(this._name, this._link);
-      }
-    });
+    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._deleteCard());
+    this._element.querySelector('.button-like').addEventListener('click', () => this._addLike());
+    this._element.querySelector('.gallery__card-image').addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 }

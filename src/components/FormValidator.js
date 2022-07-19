@@ -14,6 +14,7 @@ export default class FormValidator {
   resertValidation() {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
+      this._toggleButtonState();
     });
   }
 
@@ -66,9 +67,6 @@ export default class FormValidator {
   };
 
   enableValidation = () => {
-    this._form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-    this._setEventListeners(this._form);
+    this._setEventListeners();
   };
 }
