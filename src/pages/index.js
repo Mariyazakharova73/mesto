@@ -61,17 +61,8 @@ popupProfile.setEventListeners();
 const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
-    const galleryWithNewCards = new Section(
-      {
-        data: [formData],
-        renderer: (cardItem) => {
-          const cardElement = createCard(cardItem, '.card-template');
-          galleryWithNewCards.setItem(cardElement);
-        },
-      },
-      '.gallery__cards'
-    );
-    galleryWithNewCards.renderItems();
+    const cardElement = createCard(formData, '.card-template');
+    galleryCards.setItem(cardElement);
     popupCard.close();
   },
 });
