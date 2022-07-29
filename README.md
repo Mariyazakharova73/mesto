@@ -12,7 +12,7 @@
 
 **Cсылка на страницу проекта**
 
-* [Ссылка: "Место"](https://mariyazakharova73.github.io/mesto/index.html) 
+* [Ссылка: "Место"](https://mariyazakharova73.github.io/mesto) 
 
 **Figma**
 
