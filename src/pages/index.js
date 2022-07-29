@@ -1,5 +1,5 @@
 import './../pages/index.css';
-import { initialCards, config, buttonElementEdit, buttonElementAdd, nameInput, jobInput } from '../utils/constants.js';
+import { initialCards, config, buttonElementEdit, buttonElementAdd, nameInput, jobInput, userJob, userName } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -72,18 +72,41 @@ popupCard.setEventListeners();
 const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job' });
 
 
+// fetch('https://mesto.nomoreparties.co/v1/cohort-47/users/me', {
+//   headers: {
+//     authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((data) => {
+//     console.log(data);
+//     userName.textContent = data.name;
+//     userJob.textContent = data.about;
+//   }); 
+
+ 
+
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-47',
   headers: {
     authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b',
     'Content-Type': 'application/json'
   }
-});
+}, userName, userJob);
 
-api.getInitialCards()
+api.getUserInfo()
   .then((result) => {
     // обрабатываем результат
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
   });
+
+// api.getInitialCards()
+//   .then((result) => {
+//     // обрабатываем результат
+//   })
+//   .catch((err) => {
+//     console.log(err); // выведем ошибку в консоль
+//   });
