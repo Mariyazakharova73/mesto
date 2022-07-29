@@ -6,6 +6,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Card from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 function createCard(item, template) {
   const card = new Card(item, template, {
@@ -69,3 +70,20 @@ const popupCard = new PopupWithForm({
 popupCard.setEventListeners();
 
 const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job' });
+
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-47',
+  headers: {
+    authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b',
+    'Content-Type': 'application/json'
+  }
+});
+
+api.getInitialCards()
+  .then((result) => {
+    // обрабатываем результат
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
