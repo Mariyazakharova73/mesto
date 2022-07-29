@@ -36,6 +36,10 @@ export default class Api {
 
   //       // если ошибка, отклоняем промис
   //       return Promise.reject(`Ошибка: ${res.status}`);
+  //     })
+  //     .then((data) => {
+  //       // return data;
+  //       console.log(data);
   //     });
   // }
 

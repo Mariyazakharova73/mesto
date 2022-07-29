@@ -23,9 +23,40 @@ validationForEditForm.enableValidation();
 const validationForAddForm = new FormValidator(config, addForm);
 validationForAddForm.enableValidation();
 
+
+const api = new Api(userName, userJob, {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-47',
+  headers: {
+    authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b',
+    'Content-Type': 'application/json'
+  }
+});
+
+api.getUserInfo()
+  .then((result) => {
+    console.log(result);
+    // обрабатываем результат
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+  //---------------------------------------------------------------------------
+
+  fetch('https://mesto.nomoreparties.co/v1/cohort-47/cards', {
+  headers: {
+    authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b'
+  }
+})
+  .then(res => res.json())
+  .then((data) => {
+    console.log(data);
+  }); 
+
+  const arr = []; 
+
 const galleryCards = new Section(
   {
-    data: initialCards,
+    data: arr,
     renderer: (cardItem) => {
       const cardElement = createCard(cardItem, '.card-template');
       galleryCards.setItem(cardElement);
@@ -87,26 +118,4 @@ const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', prof
  
 
 
-const api = new Api(userName, userJob, {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-47',
-  headers: {
-    authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b',
-    'Content-Type': 'application/json'
-  }
-});
 
-api.getUserInfo()
-  .then((result) => {
-    // обрабатываем результат
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
-
-// api.getInitialCards()
-//   .then((result) => {
-//     // обрабатываем результат
-//   })
-//   .catch((err) => {
-//     console.log(err); // выведем ошибку в консоль
-//   });
