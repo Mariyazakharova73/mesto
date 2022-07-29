@@ -87,13 +87,13 @@ const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', prof
  
 
 
-const api = new Api({
+const api = new Api(userName, userJob, {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-47',
   headers: {
     authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b',
     'Content-Type': 'application/json'
   }
-}, userName, userJob);
+});
 
 api.getUserInfo()
   .then((result) => {
