@@ -5,8 +5,8 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  renderItems(x) {
-    x.forEach((item) => {
+  renderItems(arr) {
+    arr.forEach((item) => {
      this._renderer(item);
     });
   }

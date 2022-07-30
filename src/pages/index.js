@@ -8,22 +8,11 @@ import Card from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
-console.log(options.url);
-
-function createCard(item, template) {
-  const card = new Card(item, template, {
-    handleCardClick: (titleInPopupImage, linkInPopupImage) => {
-      popupImage.open(titleInPopupImage, linkInPopupImage);
-    },
-  });
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
 const validationForEditForm = new FormValidator(config, editForm);
 validationForEditForm.enableValidation();
 const validationForAddForm = new FormValidator(config, addForm);
 validationForAddForm.enableValidation();
+
 
 const api = new Api( {
   url: 'https://mesto.nomoreparties.co/v1/cohort-47/',
@@ -42,28 +31,43 @@ api
   .catch((err) => {
     console.log(err);
   });
+
+  
 //---------------------------------------------------------------------------
 api
   .getInitialCards()
   .then((result) => {
-    console.log(result);
+   galleryCards.renderItems(result);
   })
   .catch((err) => {
     console.log(err);
+  }); 
+
+
+
+
+
+
+function createCard(item, template) {
+  const card = new Card(item, template, {
+    handleCardClick: (titleInPopupImage, linkInPopupImage) => {
+      popupImage.open(titleInPopupImage, linkInPopupImage);
+    },
   });
+  const cardElement = card.generateCard();
+  return cardElement;
+}
 
 const galleryCards = new Section(
   {
     // data: arr,
     renderer: (cardItem) => {
       const cardElement = createCard(cardItem, '.card-template');
-      galleryCards.setItem(cardElement);
+      galleryCards.setItem(cardElement); //принимает DOM-элемент и добавляет его в контейнер
     },
   },
   '.gallery__cards'
 );
-
-galleryCards.renderItems([{ name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' }]);
 
 const popupImage = new PopupWithImage({ popupSelector: '.popup_place_click-image' });
 popupImage.setEventListeners();
