@@ -8,6 +8,13 @@ import Card from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
+const options = {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-47/users/me',
+  headers: { authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b' },
+};
+
+console.log(options.url);
+
 function createCard(item, template) {
   const card = new Card(item, template, {
     handleCardClick: (titleInPopupImage, linkInPopupImage) => {
@@ -23,40 +30,36 @@ validationForEditForm.enableValidation();
 const validationForAddForm = new FormValidator(config, addForm);
 validationForAddForm.enableValidation();
 
-
-const api = new Api(userName, userJob, {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-47',
+const api = new Api( {
+  url: 'https://mesto.nomoreparties.co/v1/cohort-47/',
   headers: {
     authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b',
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
-api.getUserInfo()
+api
+  .getUserInfo()
   .then((result) => {
-    console.log(result);
-    // обрабатываем результат
+    userName.textContent = result.name;
+    userJob.textContent = result.about;
   })
   .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
+    console.log(err);
   });
-  //---------------------------------------------------------------------------
-
-  fetch('https://mesto.nomoreparties.co/v1/cohort-47/cards', {
-  headers: {
-    authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b'
-  }
-})
-  .then(res => res.json())
-  .then((data) => {
-    console.log(data);
-  }); 
-
-  const arr = []; 
+//---------------------------------------------------------------------------
+api
+  .getInitialCards()
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const galleryCards = new Section(
   {
-    data: arr,
+    // data: arr,
     renderer: (cardItem) => {
       const cardElement = createCard(cardItem, '.card-template');
       galleryCards.setItem(cardElement);
@@ -64,7 +67,8 @@ const galleryCards = new Section(
   },
   '.gallery__cards'
 );
-galleryCards.renderItems();
+
+galleryCards.renderItems([{ name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg' }]);
 
 const popupImage = new PopupWithImage({ popupSelector: '.popup_place_click-image' });
 popupImage.setEventListeners();
@@ -101,21 +105,3 @@ const popupCard = new PopupWithForm({
 popupCard.setEventListeners();
 
 const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job' });
-
-
-// fetch('https://mesto.nomoreparties.co/v1/cohort-47/users/me', {
-//   headers: {
-//     authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((data) => {
-//     console.log(data);
-//     userName.textContent = data.name;
-//     userJob.textContent = data.about;
-//   }); 
-
- 
-
-
-

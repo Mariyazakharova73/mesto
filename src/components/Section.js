@@ -1,12 +1,12 @@
 export default class Section {
-  constructor({ data, renderer }, containerSelector) {
-    this._initialArray = data;
+  constructor({ renderer }, containerSelector) {
+    // this._initialArray = data;
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
 
-  renderItems() {
-    this._initialArray.forEach((item) => {
+  renderItems(x) {
+    x.forEach((item) => {
      this._renderer(item);
     });
   }
@@ -15,3 +15,8 @@ export default class Section {
     this._container.prepend(element);
   }
 }
+
+
+// массив не в конструктор, а в метод рендер итемс
+
+// метод принимает массив и его парсит

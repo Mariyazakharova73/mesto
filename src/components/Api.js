@@ -1,47 +1,28 @@
 export default class Api {
-  constructor(userName, job) {
-    this._userName = userName;
-    this._job = job;
+  constructor(options) {
+    this._url = options.url;
+    this._headers = options.headers;
   }
 
   getUserInfo() {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-47/users/me', {
-      headers: {
-        authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b',
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then((data) => {
-        this._userName.textContent = data.name;
-        this._job.textContent = data.about;
-      });
+    return fetch(`${this._url}users/me`, {
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
-  // getInitialCards() {
-  //   return fetch('https://mesto.nomoreparties.co/v1/cohort-47/cards', {
-  //     headers: {
-  //       authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b'
-  //     }
-  //   })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-
-  //       // если ошибка, отклоняем промис
-  //       return Promise.reject(`Ошибка: ${res.status}`);
-  //     })
-  //     .then((data) => {
-  //       // return data;
-  //       console.log(data);
-  //     });
-  // }
-
-  // другие методы работы с API
+  getInitialCards() {
+    return fetch(`${this._url}cards`, {
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
 }
