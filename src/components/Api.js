@@ -34,4 +34,16 @@ export default class Api {
       headers: this._headers,
     }).then(this._getResponse);
   }
+
+  sendNewCard(name, link) {
+    return fetch(`${this._url}cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    }).then(this._getResponse);
+  }
+
 }

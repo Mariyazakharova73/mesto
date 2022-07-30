@@ -116,7 +116,6 @@ buttonElementEdit.addEventListener('click', () => {
   //данные пользователя подставляет в форму при открытии
   nameInput.value = userInfo.getUserInfo().name;
   jobInput.value = userInfo.getUserInfo().about;
-
   validationForEditForm.resertValidation();
 });
 
@@ -131,7 +130,7 @@ const popupProfile = new PopupWithForm({
     //принимает новые данные пользователя и добавляет их на страницу
     userInfo.setUserInfo(formData);
     api
-  .sendProfile(formData.name, formData.about,)
+  .sendProfile(formData.name, formData.about)
   .then((result) => {
     console.log(result);
   })
@@ -146,7 +145,15 @@ popupProfile.setEventListeners();
 const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
+    console.log(formData);
     const cardElement = createCard(formData, '.card-template');
+    // api.sendNewCard(formData.name, formData.link)
+    // .then((result) => {
+    //   console.log(result);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
     galleryCards.setItem(cardElement);
     popupCard.close();
   },
