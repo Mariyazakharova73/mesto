@@ -8,11 +8,6 @@ import Card from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
-const options = {
-  url: 'https://mesto.nomoreparties.co/v1/cohort-47/users/me',
-  headers: { authorization: '55bfc6da-57f3-4fa7-807c-daa05221149b' },
-};
-
 console.log(options.url);
 
 function createCard(item, template) {
