@@ -6,16 +6,18 @@ export default class UserInfo {
     this._profileJob = document.querySelector(profileJobSelector);
   }
 
+  //данные пользователя подставляет в форму при открытии
   getUserInfo() {
-    const objUserInfo = {
+    return {
       name: this._profileName.textContent,
-      job: this._profileJob.textContent,
-    };
-    return objUserInfo;
+      about: this._profileJob.textContent,
+    }
   }
 
+  //принимает новые данные пользователя и добавляет их на страницу
   setUserInfo(obj) {
     this._profileName.textContent = obj.name;
-    this._profileJob.textContent = obj.job;
+    this._profileJob.textContent = obj.about;
+    //аватар?????
   }
 }
