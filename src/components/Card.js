@@ -1,9 +1,11 @@
 export default class Card {
-  constructor(data, cardSelector, { handleCardClick }) {
+  constructor(data, cardSelector, { handleCardClick, openPopupDeleteCard }) {
     this._handleCardClick = handleCardClick;
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes.length;
     this._cardSelector = cardSelector;
+    this._openPopupDeleteCard = openPopupDeleteCard;
   }
 
   _getTemplate() {
@@ -19,6 +21,7 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.gallery__card-heading').textContent = this._name;
+    this._element.querySelector('.button-like__number').textContent = this._likes;
     return this._element;
   }
 
@@ -31,7 +34,8 @@ export default class Card {
   }
 
   _setCardListeners() {
-    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._deleteCard());
+    // this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._deleteCard());
+    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._openPopupDeleteCard());
     this._like.addEventListener('click', () => this._addLike());
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }

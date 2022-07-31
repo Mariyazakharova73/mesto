@@ -2,6 +2,7 @@ import './../pages/index.css';
 import { initialCards, config, buttonElementEdit, buttonElementAdd, nameInput, jobInput } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Card from '../components/Card.js';
@@ -32,34 +33,6 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     console.log(err);
   });
 
-// api
-//   .sendProfile('Marie', 'Physicist')
-//   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-// api
-//   .getProfile()
-//   .then((result) => {
-//     userInfo.setUserInfo(result);
-//     // userName.textContent = result.name;
-//     // userJob.textContent = result.about;
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-// api
-//   .getInitialCards()
-//   .then((result) => {
-//     galleryCards.renderItems(result);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
 // function handleSubmitCard(data) {
 //   //вызвать функцию, которая поменяет кнопку отправки формы
 // api.createCard(data).then(res => {
@@ -87,11 +60,14 @@ Promise.all([api.getProfile(), api.getInitialCards()])
 //если так, то лайк закрашиваем, если нет, то пустое
 //}
 
-function createCard(item, template) {
-  const card = new Card(item, template, {
+function createCard(obj) {
+  const card = new Card(obj, '.card-template', {
     handleCardClick: (titleInPopupImage, linkInPopupImage) => {
       popupImage.open(titleInPopupImage, linkInPopupImage);
     },
+    openPopupDeleteCard: () => {
+      popupDeleteCard.open();
+    }
   });
   const cardElement = card.generateCard();
   return cardElement;
@@ -99,9 +75,8 @@ function createCard(item, template) {
 
 const galleryCards = new Section(
   {
-    // data: arr,
     renderer: (cardItem) => {
-      const cardElement = createCard(cardItem, '.card-template');
+      const cardElement = createCard(cardItem);
       galleryCards.setItem(cardElement); //принимает DOM-элемент и добавляет его в контейнер
     },
   },
@@ -129,14 +104,14 @@ const popupProfile = new PopupWithForm({
   handleFormSubmit: (formData) => {
     //принимает новые данные пользователя и добавляет их на страницу
     userInfo.setUserInfo(formData);
-    api
-  .sendProfile(formData.name, formData.about)
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    // api
+    //   .sendProfile(formData.name, formData.about)
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     popupProfile.close();
   },
 });
@@ -146,14 +121,7 @@ const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
     console.log(formData);
-    const cardElement = createCard(formData, '.card-template');
-    // api.sendNewCard(formData.name, formData.link)
-    // .then((result) => {
-    //   console.log(result);
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
+    const cardElement = createCard(formData);
     galleryCards.setItem(cardElement);
     popupCard.close();
   },
@@ -161,3 +129,8 @@ const popupCard = new PopupWithForm({
 popupCard.setEventListeners();
 
 const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job' });
+
+
+const popupDeleteCard = new Popup({
+  popupSelector: '.popup_place_delete-button',
+});

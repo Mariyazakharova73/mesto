@@ -49,4 +49,4 @@ const config = {
   errorClass: 'popup__input-error_active',
 };
 
-export { initialCards, popupImage, imageInPopup, popupImageTitle, cardsContainer, userName, userJob, buttonElementEdit, buttonElementAdd, popupProfile, popupCard, formElementEdit, nameInput, jobInput, formElementAdd, titleInput, linkInput, config }
+export { initialCards, popupImage, imageInPopup, popupImageTitle, cardsContainer, userName, userJob, buttonElementEdit, buttonElementAdd, popupProfile, popupCard, formElementEdit, nameInput, jobInput, formElementAdd, titleInput, linkInput, config, }

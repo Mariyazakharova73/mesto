@@ -6,7 +6,6 @@ export default class Api {
 
   _getResponse(res) {
     if (res.ok) {
-      //если с ответом все хорошо, делаем json
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
@@ -45,5 +44,4 @@ export default class Api {
       }),
     }).then(this._getResponse);
   }
-
 }
