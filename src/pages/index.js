@@ -22,12 +22,11 @@ const api = new Api({
   },
 });
 
-let userId
+// let userId;
 
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([user, cards]) => {
-    console.log(user._id);
-    userId = user._id;
+    // userId = user._id;
     console.log(user);
     //принимает новые данные пользователя и добавляет их на страницу
     userInfo.setUserInfo(user);
@@ -65,7 +64,7 @@ function deleteLike(id){
 
 
 function createCard(obj) {
-  const card = new Card(obj, '.card-template', userId, {
+  const card = new Card(obj, '.card-template', {
     //открывает попап с картинкой
     handleCardClick: (titleInPopupImage, linkInPopupImage) => {
       popupImage.open(titleInPopupImage, linkInPopupImage);
@@ -132,12 +131,10 @@ popupProfile.setEventListeners();
 const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
-    console.log(formData);
      api.sendNewCard(formData.name, formData.link)
     .then((res) => {
-      console.log(res);
-    const card = createCard(formData);
-    //принимает DOM-элемент и добавляет его в контейнер
+    const card = createCard(res);
+    // принимает DOM-элемент и добавляет его в контейнер
     section.setItem(card);
     })
     .catch((err) => {
@@ -157,10 +154,8 @@ popupDeleteCard.setEventListeners();
 
 
 
-  const button = popupDeleteCard._popup.querySelector('.popup__form-button');
-  console.log(button);
-
-
+  // const button = popupDeleteCard._popup.querySelector('.popup__form-button');
+  // console.log(button);
 
 // function handleSubmitCard(data) {
 //   //вызвать функцию, которая поменяет кнопку отправки формы
