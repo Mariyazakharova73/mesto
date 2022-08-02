@@ -22,10 +22,13 @@ const api = new Api({
   },
 });
 
-let userId;
+let userId
+
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([user, cards]) => {
+    console.log(user._id);
     userId = user._id;
+    console.log(user);
     //принимает новые данные пользователя и добавляет их на страницу
     userInfo.setUserInfo(user);
     //для каждого элемента массива создает карточку
@@ -37,8 +40,6 @@ Promise.all([api.getProfile(), api.getInitialCards()])
   .catch((err) => {
     console.log(err);
   });
-
-//userId тот, кто создал карточку
 
 //function createCard1 (data) {
 //const card = new Card(data, x, userId)
@@ -53,6 +54,15 @@ function deleteCard(id){
 	return api.deleteCard(id);
 }
 
+function addLike(id){
+	return api.addLike(id);
+}
+
+function deleteLike(id){
+	return api.deleteLike(id);
+}
+
+
 
 function createCard(obj) {
   const card = new Card(obj, '.card-template', userId, {
@@ -63,7 +73,7 @@ function createCard(obj) {
     openPopupDeleteCard: () => {
       popupDeleteCard.open();
     },
-  }, deleteCard, button);
+  }, deleteCard, addLike, deleteLike);
 
   const cardElement = card.generateCard();
   return cardElement;
