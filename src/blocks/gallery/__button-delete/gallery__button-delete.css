@@ -18,3 +18,7 @@
   opacity: .6;
   cursor: pointer;
 }
+
+.gallery__button-delete_hidden {
+  display: none;
+}

@@ -15,8 +15,3 @@ export default class Section {
     this._container.prepend(element);
   }
 }
-
-
-// массив не в конструктор, а в метод рендер итемс
-
-// метод принимает массив и его парсит
