@@ -9,6 +9,6 @@
   left: 0;
 }
 
-.popup__input-error_active:last-of-type {
+.popup__input-error_active:nth-of-type(2) {
   top: 95px;
 }
