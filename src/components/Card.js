@@ -63,6 +63,7 @@ export default class Card {
     this._addLikeFromServer(this._cardId)
       .then((res) => {
         this._like.classList.add('button-like_active');
+        this._element.querySelector('.button-like__number').textContent = res.likes.length;
         console.log(res);
       })
       .catch((err) => {
@@ -74,6 +75,7 @@ export default class Card {
     this._deleteLikeFromServer(this._cardId)
       .then((res) => {
         this._like.classList.remove('button-like_active');
+        this._element.querySelector('.button-like__number').textContent = res.likes.length;
         console.log(res);
       })
       .catch((err) => {
