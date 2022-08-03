@@ -1,10 +1,10 @@
 import './../pages/index.css';
-import { config, buttonElementEdit, buttonElementAdd, nameInput, jobInput } from '../utils/constants.js';
+import { config, buttonElementEdit, buttonElementAdd, nameInput, jobInput, buttonEditAvatar } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import Card from '../components/Card.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
@@ -12,7 +12,10 @@ import Api from '../components/Api.js';
 const validationForEditForm = new FormValidator(config, editForm);
 validationForEditForm.enableValidation();
 const validationForAddForm = new FormValidator(config, addForm);
+
 validationForAddForm.enableValidation();
+const validationForEditAvatarForm = new FormValidator(config, editAvatarForm);
+validationForEditAvatarForm.enableValidation();
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-47/',
@@ -22,57 +25,52 @@ const api = new Api({
   },
 });
 
-// let userId;
+let userId;
 
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([user, cards]) => {
-    // userId = user._id;
+    userId = user._id;
     console.log(user);
     //принимает новые данные пользователя и добавляет их на страницу
     userInfo.setUserInfo(user);
     //для каждого элемента массива создает карточку
     section.renderItems(cards);
     console.log(cards);
-    // console.log(cards[0]._id);
-    // console.log(user);
   })
   .catch((err) => {
     console.log(err);
   });
 
-//function createCard1 (data) {
-//const card = new Card(data, x, userId)
-//проверить, что userId совпадает с полем владельца карточки
-//если это так, то показываем корзину
-//если не так, то скрываем
-//лайки проверить, что среди элементов есть элемент, который равен userId
-//если так, то лайк закрашиваем, если нет, то пустое
-//}
-
-function deleteCard(id){
-	return api.deleteCard(id);
+function deleteCard(id) {
+  return api.deleteCard(id);
 }
 
-function addLike(id){
-	return api.addLike(id);
+function addLike(id) {
+  return api.addLike(id);
 }
 
-function deleteLike(id){
-	return api.deleteLike(id);
+function deleteLike(id) {
+  return api.deleteLike(id);
 }
-
-
 
 function createCard(obj) {
-  const card = new Card(obj, '.card-template', {
-    //открывает попап с картинкой
-    handleCardClick: (titleInPopupImage, linkInPopupImage) => {
-      popupImage.open(titleInPopupImage, linkInPopupImage);
+  const card = new Card(
+    obj,
+    '.card-template',
+    {
+      //открывает попап с картинкой
+      handleCardClick: (titleInPopupImage, linkInPopupImage) => {
+        popupImage.open(titleInPopupImage, linkInPopupImage);
+      },
+      handleRemoveCard: (card) => {
+        popupDeleteCard.open(card);
+      },
     },
-    openPopupDeleteCard: () => {
-      popupDeleteCard.open();
-    },
-  }, deleteCard, addLike, deleteLike);
+    deleteCard,
+    addLike,
+    deleteLike,
+    userId
+  );
 
   const cardElement = card.generateCard();
   return cardElement;
@@ -105,7 +103,12 @@ buttonElementAdd.addEventListener('click', () => {
   validationForAddForm.resertValidation();
 });
 
-//ПРОФИЛЬ
+buttonEditAvatar.addEventListener('click', () => {
+  popupAvatar.open();
+  validationForEditAvatarForm.resertValidation();
+});
+
+//ПРОФИЛЬ------------------------------------------------------------------------
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_place_edit-button',
   handleFormSubmit: (formData) => {
@@ -124,38 +127,63 @@ const popupProfile = new PopupWithForm({
 });
 popupProfile.setEventListeners();
 
-
-
-
-//КАРТОЧКА
+//КАРТОЧКА-----------------------------------------------------------------------
 const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
-     api.sendNewCard(formData.name, formData.link)
-    .then((res) => {
-    const card = createCard(res);
-    // принимает DOM-элемент и добавляет его в контейнер
-    section.setItem(card);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    api
+      .sendNewCard(formData.name, formData.link)
+      .then((res) => {
+        const card = createCard(res);
+        // принимает DOM-элемент и добавляет его в контейнер
+        section.setItem(card);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     popupCard.close();
   },
 });
 popupCard.setEventListeners();
 
-const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job' });
+const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job', profileAvatarSelector: '.profile__avatar' });
 
-const popupDeleteCard = new Popup({
-  popupSelector: '.popup_place_delete-button',
+//АВАТАР---------------------------------------------------------------------
+const popupAvatar = new PopupWithForm({
+  popupSelector: '.popup_place_avatar',
+  handleFormSubmit: (formData) => {
+    // userInfo.setUserAvatar(formData)
+    api
+      .sendAvatar(formData.link)
+      .then((res) => {
+        userInfo.setUserAvatar(res);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+    popupAvatar.close();
+  },
 });
+
+popupAvatar.setEventListeners();
+
+//Удаление карточки----------------------------------------
+const popupDeleteCard = new PopupWithConfirmation({
+  popupSelector: '.popup_place_delete-button',
+  delCard: (card) =>
+    deleteCard(card._id)
+      .then((res) => {
+        console.log(res);
+        popupDeleteCard.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      }),
+});
+
 popupDeleteCard.setEventListeners();
 
 
-
-  // const button = popupDeleteCard._popup.querySelector('.popup__form-button');
-  // console.log(button);
 
 // function handleSubmitCard(data) {
 //   //вызвать функцию, которая поменяет кнопку отправки формы
@@ -172,6 +200,3 @@ popupDeleteCard.setEventListeners();
 //   //метод попап виз форм эта функция
 // })
 // }
-
-
-

@@ -1,27 +1,28 @@
 export default class Card {
-  constructor(data, cardSelector, { handleCardClick, openPopupDeleteCard }, deleteCardFromServer, addLikeFromServer, deleteLikeFromServer) {
+  constructor(data, cardSelector, { handleCardClick, handleRemoveCard }, deleteCardFromServer, addLikeFromServer, deleteLikeFromServer, userId) {
     this._handleCardClick = handleCardClick;
     this._name = data.name;
     this._link = data.link;
     this._cardId = data._id;
     this._likes = data.likes;
     this._cardSelector = cardSelector;
-    this._openPopupDeleteCard = openPopupDeleteCard;
-    this._userId = data.owner._id;
+    this._handleRemoveCard = handleRemoveCard;
+    this._ownerId = data.owner._id;
     this._deleteCardFromServer = deleteCardFromServer;
     this._deleteLikeFromServer = deleteLikeFromServer;
     this._addLikeFromServer = addLikeFromServer;
+    this._userId = userId;
   }
 
   _checkId() {
-    if (this._userId === '8ee3c4ebefdf8ecffa7150ce') {
+    if (this._ownerId === this._userId) {
       this._element.querySelector('.gallery__button-delete').classList.remove('gallery__button-delete_hidden');
     }
   }
 
   _isLiked() {
-    this._likes.forEach((user) => {
-      if (user._id === '8ee3c4ebefdf8ecffa7150ce') {
+    this._likes.forEach(() => {
+      if (this._ownerId === this._userId) {
         this._like.classList.add('button-like_active')
       } else {
         this._like.classList.remove('button-like_active')
@@ -48,7 +49,7 @@ export default class Card {
     return this._element;
   }
 
-  _deleteCard() {
+  deleteCard() {
     this._deleteCardFromServer(this._cardId)
       .then((res) => {
         this._element.remove();
@@ -84,9 +85,8 @@ export default class Card {
   }
 
   _setCardListeners() {
-    // this._button.addEventListener('click', () => this._deleteCard());
-    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._deleteCard());
-    // this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._openPopupDeleteCard());
+    // this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this.deleteCard());
+    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._handleRemoveCard(this._cardId));
     this._like.addEventListener('click', () => {
       if (this._like.classList.contains('button-like_active')) {
         this._deleteLike();

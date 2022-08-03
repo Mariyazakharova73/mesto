@@ -1,9 +1,10 @@
 export default class UserInfo {
-  constructor({ profileNameSelector, profileJobSelector }) {
+  constructor({ profileNameSelector, profileJobSelector,  profileAvatarSelector}) {
     this._profileNameSelector = profileNameSelector;
     this._profileJobSelector = profileJobSelector;
     this._profileName = document.querySelector(profileNameSelector);
     this._profileJob = document.querySelector(profileJobSelector);
+    this._profileAvatar = document.querySelector(profileAvatarSelector);
   }
 
   //данные пользователя подставляет в форму при открытии
@@ -19,5 +20,9 @@ export default class UserInfo {
     this._profileName.textContent = obj.name;
     this._profileJob.textContent = obj.about;
     //аватар?????
+  }
+
+  setUserAvatar(obj) {
+    this._profileAvatar.src = obj.avatar;
   }
 }

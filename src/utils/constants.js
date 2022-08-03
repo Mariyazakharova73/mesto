@@ -40,6 +40,7 @@ const jobInput = editForm.about;
 const formElementAdd = document.addForm;
 const titleInput = addForm.title;
 const linkInput = addForm.link;
+const buttonEditAvatar = document.querySelector('.profile__avatar-wrapper');
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__form-input',
@@ -49,4 +50,4 @@ const config = {
   errorClass: 'popup__input-error_active',
 };
 
-export { initialCards, popupImage, imageInPopup, popupImageTitle, cardsContainer, userName, userJob, buttonElementEdit, buttonElementAdd, popupProfile, popupCard, formElementEdit, nameInput, jobInput, formElementAdd, titleInput, linkInput, config, }
+export { initialCards, popupImage, imageInPopup, popupImageTitle, cardsContainer, userName, userJob, buttonElementEdit, buttonElementAdd, popupProfile, popupCard, formElementEdit, nameInput, jobInput, formElementAdd, titleInput, linkInput, config, buttonEditAvatar }

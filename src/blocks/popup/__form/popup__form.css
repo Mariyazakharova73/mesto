@@ -2,7 +2,7 @@
   border: none;
   margin-top: 43px;
   padding: 0;
-  min-height: 183px;
+  /* min-height: 183px; */
   display: flex;
   flex-direction: column;
   position: relative;
@@ -11,6 +11,6 @@
 @media screen and (max-width: 767px) {
   .popup__form {
     margin-top: 70px;
-    min-height: 180px;
+    /* min-height: 180px; */
   }
 }
