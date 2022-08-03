@@ -19,7 +19,7 @@ export default class UserInfo {
   setUserInfo(obj) {
     this._profileName.textContent = obj.name;
     this._profileJob.textContent = obj.about;
-    //аватар?????
+    this._profileAvatar.src = obj.avatar;
   }
 
   setUserAvatar(obj) {
