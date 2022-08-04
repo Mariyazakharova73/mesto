@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, cardSelector, { handleCardClick, deleteCardFromServer, addLikeFromServer, deleteLikeFromServer }, userId) {
+  constructor(data, cardSelector, userId, { handleCardClick, handleTrashClick, addLikeFromServer, deleteLikeFromServer }) {
     this._handleCardClick = handleCardClick;
     this._name = data.name;
     this._link = data.link;
@@ -7,7 +7,7 @@ export default class Card {
     this._likes = data.likes;
     this._cardSelector = cardSelector;
     this._ownerId = data.owner._id;
-    this._deleteCardFromServer = deleteCardFromServer;
+    this._handleTrashClick = handleTrashClick;
     this._deleteLikeFromServer = deleteLikeFromServer;
     this._addLikeFromServer = addLikeFromServer;
     this._userId = userId;
@@ -61,7 +61,7 @@ export default class Card {
   }
 
   _setCardListeners() {
-    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._deleteCardFromServer());
+    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._handleTrashClick());
 
     this._like.addEventListener('click', () => {
       if (this._like.classList.contains('button-like_active')) {

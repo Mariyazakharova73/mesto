@@ -1,5 +1,5 @@
 import './../pages/index.css';
-import { config, buttonElementEdit, buttonElementAdd, nameInput, jobInput, buttonEditAvatar, buttonSave } from '../utils/constants.js';
+import { config, buttonElementEdit, buttonElementAdd, nameInput, jobInput, buttonEditAvatar } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -45,10 +45,12 @@ function createCard(obj) {
   const card = new Card(
     obj,
     '.card-template',
+    userId,
     {
       //открывает попап с картинкой
       handleCardClick: (titleInPopupImage, linkInPopupImage) => popupImage.open(titleInPopupImage, linkInPopupImage),
-      deleteCardFromServer: () => popupDeleteCard.open(card),
+      //открывает попап удаления
+      handleTrashClick: () => popupDeleteCard.open(card),
       addLikeFromServer: () =>
         api
           .addLike(obj._id)
@@ -69,32 +71,7 @@ function createCard(obj) {
           .catch((err) => {
             console.log(`Ошибка: ${err}`);
           }),
-    },
-    // () => popupDeleteCard.open(card),
-    // () => {
-    // api
-    //   .addLike(obj._id)
-    //   .then((res) => {
-    //     card.addLike();
-    //     card.setCountLike(res);
-
-    //   })
-    //   .catch((err) => {
-    //     console.log(`Ошибка: ${err}`);
-    //   });
-    // },
-    // () => {
-    //   api
-    //     .deleteLike(obj._id)
-    //     .then((res) => {
-    //       card.deleteLike();
-    //       card.setCountLike(res);
-    //     })
-    //     .catch((err) => {
-    //       console.log(`Ошибка: ${err}`);
-    //     });
-    // },
-    userId
+    }
   );
 
   const cardElement = card.generateCard();
@@ -198,11 +175,11 @@ popupAvatar.setEventListeners();
 //Удаление карточки----------------------------------------
 const popupDeleteCard = new PopupWithConfirmation({
   popupSelector: '.popup_place_delete-button',
-  delCard: (card) =>
+  deleteCardFromServer: (x) =>
     api
-      .deleteCard(card._cardId)
+      .deleteCard(x._cardId)
       .then(() => {
-        card.deleteCard();
+        x.deleteCard();
         popupDeleteCard.close();
       })
       .catch((err) => {
