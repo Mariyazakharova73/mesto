@@ -28,14 +28,4 @@ export default class Popup {
       }
     });
   }
-
-  renderLoading(isLoading) {
-    if (isLoading) {
-      console.log(this._button);
-      this._button.textContent = 'Сохранение...';
-    } else {
-      this._button.textContent = 'Сохранить'
-      console.log(this._button);
-    }
-  }
 }

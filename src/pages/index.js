@@ -110,7 +110,7 @@ buttonEditAvatar.addEventListener('click', () => {
   validationForEditAvatarForm.resertValidation();
 });
 
-//ПРОФИЛЬ------------------------------------------------------------------------
+//ПРОФИЛЬ
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_place_edit-button',
   handleFormSubmit: (formData) => {
@@ -129,7 +129,7 @@ const popupProfile = new PopupWithForm({
 });
 popupProfile.setEventListeners();
 
-//КАРТОЧКА-----------------------------------------------------------------------
+//КАРТОЧКА
 const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
@@ -150,11 +150,11 @@ popupCard.setEventListeners();
 
 const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job', profileAvatarSelector: '.profile__avatar' });
 
-//АВАТАР---------------------------------------------------------------------
+//АВАТАР
 const popupAvatar = new PopupWithForm({
   popupSelector: '.popup_place_avatar',
   handleFormSubmit: (formData) => {
-    popupAvatar.renderLoading(true);
+    popupAvatar.renderLoading(true, 'Сохранение...');
     api
       .sendAvatar(formData.link)
       .then((res) => {
@@ -172,7 +172,7 @@ const popupAvatar = new PopupWithForm({
 
 popupAvatar.setEventListeners();
 
-//Удаление карточки----------------------------------------
+//Удаление карточки
 const popupDeleteCard = new PopupWithConfirmation({
   popupSelector: '.popup_place_delete-button',
   deleteCardFromServer: (x) =>
