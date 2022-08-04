@@ -31,11 +31,13 @@ export default class PopupWithForm extends Popup {
   }
 
   renderLoading(isLoading, text) {
-    if (isLoading, text) {
+    console.log(isLoading);
+    console.log(text);
+    if (isLoading) {
       console.log(this._button);
       this._button.textContent = text;
     } else {
-      this._button.textContent = this._text
+      this._button.textContent = this._text;
       console.log(this._button);
     }
   }

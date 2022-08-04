@@ -15,16 +15,16 @@ export default class Card {
 
   _checkId() {
     if (this._ownerId === this._userId) {
-      this._element.querySelector('.gallery__button-delete').classList.remove('gallery__button-delete_hidden');
+      this._trash.classList.remove('gallery__button-delete_hidden');
     }
   }
 
   _isLiked() {
-    this._likes.forEach(() => {
-      if (this._ownerId === this._userId) {
-        this._like.classList.add('button-like_active');
+    this._likes.forEach((user) => {
+      if (user._id === this._userId) {
+        this.addLike();
       } else {
-        this._like.classList.remove('button-like_active');
+        this.deleteLike();
       }
     });
   }
@@ -38,11 +38,13 @@ export default class Card {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.gallery__card-image');
     this._like = this._element.querySelector('.button-like');
+    this._trash = this._element.querySelector('.gallery__button-delete');
+    this._number = this._element.querySelector('.button-like__number');
     this._setCardListeners();
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.gallery__card-heading').textContent = this._name;
-    this._element.querySelector('.button-like__number').textContent = this._likes.length;
+    this._number.textContent = this._likes.length;
     this._checkId();
     this._isLiked();
     return this._element;
@@ -61,7 +63,7 @@ export default class Card {
   }
 
   _setCardListeners() {
-    this._element.querySelector('.gallery__button-delete').addEventListener('click', () => this._handleTrashClick());
+    this._trash.addEventListener('click', () => this._handleTrashClick());
 
     this._like.addEventListener('click', () => {
       if (this._like.classList.contains('button-like_active')) {
@@ -74,6 +76,6 @@ export default class Card {
   }
 
   setCountLike(data) {
-    this._element.querySelector('.button-like__number').textContent = data.likes.length;
+    this._number.textContent = data.likes.length;
   }
 }

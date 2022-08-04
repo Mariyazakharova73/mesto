@@ -11,9 +11,10 @@ import Api from '../components/Api.js';
 
 const validationForEditForm = new FormValidator(config, editForm);
 validationForEditForm.enableValidation();
-const validationForAddForm = new FormValidator(config, addForm);
 
+const validationForAddForm = new FormValidator(config, addForm);
 validationForAddForm.enableValidation();
+
 const validationForEditAvatarForm = new FormValidator(config, editAvatarForm);
 validationForEditAvatarForm.enableValidation();
 
@@ -30,12 +31,10 @@ let userId;
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([user, cards]) => {
     userId = user._id;
-    console.log(user);
     //принимает новые данные пользователя и добавляет их на страницу
     userInfo.setUserInfo(user);
     //для каждого элемента массива создает карточку
     section.renderItems(cards);
-    console.log(cards);
   })
   .catch((err) => {
     console.log(err);
@@ -55,8 +54,8 @@ function createCard(obj) {
         api
           .addLike(obj._id)
           .then((res) => {
-            card.addLike();
             card.setCountLike(res);
+            card.addLike();
           })
           .catch((err) => {
             console.log(`Ошибка: ${err}`);
@@ -65,8 +64,8 @@ function createCard(obj) {
         api
           .deleteLike(obj._id)
           .then((res) => {
-            card.deleteLike();
             card.setCountLike(res);
+            card.deleteLike();
           })
           .catch((err) => {
             console.log(`Ошибка: ${err}`);
@@ -169,22 +168,20 @@ const popupAvatar = new PopupWithForm({
       });
   },
 });
-
 popupAvatar.setEventListeners();
 
 //Удаление карточки
 const popupDeleteCard = new PopupWithConfirmation({
   popupSelector: '.popup_place_delete-button',
-  deleteCardFromServer: (x) =>
+  deleteCardFromServer: (card) =>
     api
-      .deleteCard(x._cardId)
+      .deleteCard(card._cardId)
       .then(() => {
-        x.deleteCard();
+        card.deleteCard();
         popupDeleteCard.close();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       }),
 });
-
 popupDeleteCard.setEventListeners();
