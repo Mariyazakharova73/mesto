@@ -1,5 +1,5 @@
 import './../pages/index.css';
-import { config, buttonElementEdit, buttonElementAdd, nameInput, jobInput, buttonEditAvatar } from '../utils/constants.js';
+import { config, buttonElementEdit, buttonElementAdd, nameInput, jobInput, buttonEditAvatar, buttonSave } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -41,34 +41,59 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     console.log(err);
   });
 
-function deleteCard(id) {
-  return api.deleteCard(id);
-}
-
-function addLike(id) {
-  return api.addLike(id);
-}
-
-function deleteLike(id) {
-  return api.deleteLike(id);
-}
-
 function createCard(obj) {
   const card = new Card(
     obj,
     '.card-template',
     {
       //открывает попап с картинкой
-      handleCardClick: (titleInPopupImage, linkInPopupImage) => {
-        popupImage.open(titleInPopupImage, linkInPopupImage);
-      },
-      handleRemoveCard: (card) => {
-        popupDeleteCard.open(card);
-      },
+      handleCardClick: (titleInPopupImage, linkInPopupImage) => popupImage.open(titleInPopupImage, linkInPopupImage),
+      deleteCardFromServer: () => popupDeleteCard.open(card),
+      addLikeFromServer: () =>
+        api
+          .addLike(obj._id)
+          .then((res) => {
+            card.addLike();
+            card.setCountLike(res);
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+          }),
+      deleteLikeFromServer: () =>
+        api
+          .deleteLike(obj._id)
+          .then((res) => {
+            card.deleteLike();
+            card.setCountLike(res);
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+          }),
     },
-    deleteCard,
-    addLike,
-    deleteLike,
+    // () => popupDeleteCard.open(card),
+    // () => {
+    // api
+    //   .addLike(obj._id)
+    //   .then((res) => {
+    //     card.addLike();
+    //     card.setCountLike(res);
+
+    //   })
+    //   .catch((err) => {
+    //     console.log(`Ошибка: ${err}`);
+    //   });
+    // },
+    // () => {
+    //   api
+    //     .deleteLike(obj._id)
+    //     .then((res) => {
+    //       card.deleteLike();
+    //       card.setCountLike(res);
+    //     })
+    //     .catch((err) => {
+    //       console.log(`Ошибка: ${err}`);
+    //     });
+    // },
     userId
   );
 
@@ -118,11 +143,11 @@ const popupProfile = new PopupWithForm({
         console.log(res);
         //принимает новые данные пользователя и добавляет их на страницу
         userInfo.setUserInfo(res);
+        popupProfile.close();
       })
       .catch((err) => {
         console.log(err);
       });
-    popupProfile.close();
   },
 });
 popupProfile.setEventListeners();
@@ -137,11 +162,11 @@ const popupCard = new PopupWithForm({
         const card = createCard(res);
         // принимает DOM-элемент и добавляет его в контейнер
         section.setItem(card);
+        popupCard.close();
       })
       .catch((err) => {
         console.log(err);
       });
-    popupCard.close();
   },
 });
 popupCard.setEventListeners();
@@ -152,16 +177,19 @@ const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', prof
 const popupAvatar = new PopupWithForm({
   popupSelector: '.popup_place_avatar',
   handleFormSubmit: (formData) => {
-    // userInfo.setUserAvatar(formData)
+    popupAvatar.renderLoading(true);
     api
       .sendAvatar(formData.link)
       .then((res) => {
         userInfo.setUserAvatar(res);
+        popupAvatar.close();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupAvatar.renderLoading(false);
       });
-    popupAvatar.close();
   },
 });
 
@@ -171,9 +199,10 @@ popupAvatar.setEventListeners();
 const popupDeleteCard = new PopupWithConfirmation({
   popupSelector: '.popup_place_delete-button',
   delCard: (card) =>
-    deleteCard(card._id)
-      .then((res) => {
-        console.log(res);
+    api
+      .deleteCard(card._cardId)
+      .then(() => {
+        card.deleteCard();
         popupDeleteCard.close();
       })
       .catch((err) => {
@@ -182,21 +211,3 @@ const popupDeleteCard = new PopupWithConfirmation({
 });
 
 popupDeleteCard.setEventListeners();
-
-
-
-// function handleSubmitCard(data) {
-//   //вызвать функцию, которая поменяет кнопку отправки формы
-// api.createCard(data).then(res => {
-//   const card = createCard(res)
-//   galleryCards.setItem(card)
-// })
-// .catch((err) => {
-//   console.log(err);
-// })
-// .finally((err) => {
-//   //вызываем функцию, которая вернет кнопку в начальное состояние. текстконтент
-//   //параметром передаем кнопку и текст в функцию
-//   //метод попап виз форм эта функция
-// })
-// }

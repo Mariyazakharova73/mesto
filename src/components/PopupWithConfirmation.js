@@ -8,8 +8,10 @@ export default class PopupWithConfirmation extends Popup {
   }
 
   open(card) {
-    this._card = card;
+    console.log(card);
+    //card это ли, получили при открытии попапа
     super.open();
+    this._card = card;
   }
 
   setEventListeners() {

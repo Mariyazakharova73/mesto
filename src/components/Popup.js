@@ -2,6 +2,7 @@ export default class Popup {
   constructor({ popupSelector } ) {
     this._popupSelector = popupSelector;
     this._popup = document.querySelector(this._popupSelector);
+    this._button = document.querySelector('.popup__form-button');
   }
 
   open() {
@@ -26,5 +27,15 @@ export default class Popup {
         this.close();
       }
     });
+  }
+
+  renderLoading(isLoading) {
+    if (isLoading) {
+      console.log(this._button);
+      this._button.textContent = 'Сохранение...';
+    } else {
+      this._button.textContent = 'Сохранить'
+      console.log(this._button);
+    }
   }
 }
