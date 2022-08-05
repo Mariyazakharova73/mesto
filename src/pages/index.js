@@ -41,37 +41,32 @@ Promise.all([api.getProfile(), api.getInitialCards()])
   });
 
 function createCard(obj) {
-  const card = new Card(
-    obj,
-    '.card-template',
-    userId,
-    {
-      //открывает попап с картинкой
-      handleCardClick: (titleInPopupImage, linkInPopupImage) => popupImage.open(titleInPopupImage, linkInPopupImage),
-      //открывает попап удаления
-      handleTrashClick: () => popupDeleteCard.open(card),
-      addLikeFromServer: () =>
-        api
-          .addLike(obj._id)
-          .then((res) => {
-            card.setCountLike(res);
-            card.addLike();
-          })
-          .catch((err) => {
-            console.log(`Ошибка: ${err}`);
-          }),
-      deleteLikeFromServer: () =>
-        api
-          .deleteLike(obj._id)
-          .then((res) => {
-            card.setCountLike(res);
-            card.deleteLike();
-          })
-          .catch((err) => {
-            console.log(`Ошибка: ${err}`);
-          }),
-    }
-  );
+  const card = new Card(obj, '.card-template', userId, {
+    //открывает попап с картинкой
+    handleCardClick: (titleInPopupImage, linkInPopupImage) => popupImage.open(titleInPopupImage, linkInPopupImage),
+    //открывает попап удаления
+    handleTrashClick: () => popupDeleteCard.open(card),
+    addLikeFromServer: () =>
+      api
+        .addLike(obj._id)
+        .then((res) => {
+          card.setCountLike(res);
+          card.addLike();
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        }),
+    deleteLikeFromServer: () =>
+      api
+        .deleteLike(obj._id)
+        .then((res) => {
+          card.setCountLike(res);
+          card.deleteLike();
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        }),
+  });
 
   const cardElement = card.generateCard();
   return cardElement;
@@ -113,6 +108,7 @@ buttonEditAvatar.addEventListener('click', () => {
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_place_edit-button',
   handleFormSubmit: (formData) => {
+    popupProfile.renderLoading(true, 'Сохранение...');
     api
       .sendProfile(formData.name, formData.about)
       .then((res) => {
@@ -123,6 +119,9 @@ const popupProfile = new PopupWithForm({
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupProfile.renderLoading(false);
       });
   },
 });
@@ -132,6 +131,7 @@ popupProfile.setEventListeners();
 const popupCard = new PopupWithForm({
   popupSelector: '.popup_place_add-button',
   handleFormSubmit: (formData) => {
+    popupCard.renderLoading(true, 'Создание...');
     api
       .sendNewCard(formData.name, formData.link)
       .then((res) => {
@@ -142,6 +142,9 @@ const popupCard = new PopupWithForm({
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        popupCard.renderLoading(false);
       });
   },
 });
