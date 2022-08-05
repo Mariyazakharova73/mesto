@@ -34,7 +34,7 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     //принимает новые данные пользователя и добавляет их на страницу
     userInfo.setUserInfo(user);
     //для каждого элемента массива создает карточку
-    section.renderItems(cards);
+    section.renderItems(cards.reverse());
   })
   .catch((err) => {
     console.log(err);
@@ -80,10 +80,10 @@ const section = new Section(
       section.setItem(cardElement); //принимает DOM-элемент и добавляет его в контейнер
     },
   },
-  '.gallery__cards'
+  config.cardContainerSelector
 );
 
-const popupImage = new PopupWithImage({ popupSelector: '.popup_place_click-image' });
+const popupImage = new PopupWithImage({ popupSelector: config.popupImageSelector });
 popupImage.setEventListeners();
 
 buttonElementEdit.addEventListener('click', () => {
@@ -106,7 +106,7 @@ buttonEditAvatar.addEventListener('click', () => {
 
 //ПРОФИЛЬ
 const popupProfile = new PopupWithForm({
-  popupSelector: '.popup_place_edit-button',
+  popupSelector: config.popupProfileSelector,
   handleFormSubmit: (formData) => {
     popupProfile.renderLoading(true, 'Сохранение...');
     api
@@ -128,8 +128,8 @@ const popupProfile = new PopupWithForm({
 popupProfile.setEventListeners();
 
 //КАРТОЧКА
-const popupCard = new PopupWithForm({
-  popupSelector: '.popup_place_add-button',
+const popupCard = new PopupWithForm( {
+  popupSelector: config.popupCardSelector,
   handleFormSubmit: (formData) => {
     popupCard.renderLoading(true, 'Создание...');
     api
@@ -150,11 +150,11 @@ const popupCard = new PopupWithForm({
 });
 popupCard.setEventListeners();
 
-const userInfo = new UserInfo({ profileNameSelector: '.profile__info-name', profileJobSelector: '.profile__info-job', profileAvatarSelector: '.profile__avatar' });
+const userInfo = new UserInfo({ profileNameSelector: config.profileNameSelector, profileJobSelector: config.profileJobSelector, profileAvatarSelector: config.profileAvatarSelector });
 
 //АВАТАР
 const popupAvatar = new PopupWithForm({
-  popupSelector: '.popup_place_avatar',
+  popupSelector: config.popupAvatarSelector,
   handleFormSubmit: (formData) => {
     popupAvatar.renderLoading(true, 'Сохранение...');
     api
@@ -175,7 +175,7 @@ popupAvatar.setEventListeners();
 
 //Удаление карточки
 const popupDeleteCard = new PopupWithConfirmation({
-  popupSelector: '.popup_place_delete-button',
+  popupSelector: config.popupDeleteCardSelector,
   deleteCardFromServer: (card) =>
     api
       .deleteCard(card._cardId)

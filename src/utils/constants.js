@@ -48,6 +48,15 @@ const config = {
   inactiveButtonClass: 'popup__form-button_inactive',
   inputErrorClass: 'popup__form-input_type_error',
   errorClass: 'popup__input-error_active',
+  popupImageSelector: '.popup_place_click-image',
+  popupProfileSelector: '.popup_place_edit-button',
+  popupCardSelector: '.popup_place_add-button',
+  popupAvatarSelector: '.popup_place_avatar',
+  popupDeleteCardSelector: '.popup_place_delete-button',
+  cardContainerSelector: '.gallery__cards',
+  profileNameSelector: '.profile__info-name',
+  profileJobSelector: '.profile__info-job',
+  profileAvatarSelector: '.profile__avatar',
 };
 
 export { initialCards, popupImage, imageInPopup, popupImageTitle, cardsContainer, userName, userJob, buttonElementEdit, buttonElementAdd, popupProfile, popupCard, formElementEdit, nameInput, jobInput, formElementAdd, titleInput, linkInput, config, buttonEditAvatar }

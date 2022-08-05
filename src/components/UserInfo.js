@@ -1,5 +1,5 @@
 export default class UserInfo {
-  constructor({ profileNameSelector, profileJobSelector,  profileAvatarSelector}) {
+  constructor({ profileNameSelector, profileJobSelector, profileAvatarSelector }) {
     this._profileNameSelector = profileNameSelector;
     this._profileJobSelector = profileJobSelector;
     this._profileName = document.querySelector(profileNameSelector);
@@ -12,17 +12,33 @@ export default class UserInfo {
     return {
       name: this._profileName.textContent,
       about: this._profileJob.textContent,
-    }
+    };
   }
 
   //принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo(obj) {
-    this._profileName.textContent = obj.name;
-    this._profileJob.textContent = obj.about;
-    this._profileAvatar.src = obj.avatar;
+  setUserInfo(userData) {
+    if (userData.name) {
+      this._profileName.textContent = userData.name;
+    } else {
+      console.log(`Поле 'Имя' не содержит данных`);
+    }
+    if (userData.about) {
+      this._profileJob.textContent = userData.about;
+    } else {
+      console.log(`Поле 'О себе' не содержит данных`);
+    }
+    if (userData.avatar) {
+      this._profileAvatar.src = userData.avatar;
+    } else {
+      console.log(`Поле 'Ссылка на картинку' не содержит данных`);
+    }
   }
 
-  setUserAvatar(obj) {
-    this._profileAvatar.src = obj.avatar;
+  setUserAvatar(userData) {
+    if (userData.avatar) {
+      this._profileAvatar.src = userData.avatar;
+    } else {
+      console.log(`Поле 'Ссылка на картинку' не содержит данных`);
+    }
   }
 }
