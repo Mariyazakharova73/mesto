@@ -112,7 +112,6 @@ const popupProfile = new PopupWithForm({
     api
       .sendProfile(formData.name, formData.about)
       .then((res) => {
-        console.log(res);
         //принимает новые данные пользователя и добавляет их на страницу
         userInfo.setUserInfo(res);
         popupProfile.close();
