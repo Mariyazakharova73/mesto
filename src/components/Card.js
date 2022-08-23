@@ -7,6 +7,7 @@ export default class Card {
     this._likes = data.likes;
     this._cardSelector = cardSelector;
     this._ownerId = data.owner._id;
+    //обратить внимание на контекст this
     this._handleTrashClick = handleTrashClick;
     this._deleteLikeFromServer = deleteLikeFromServer;
     this._addLikeFromServer = addLikeFromServer;

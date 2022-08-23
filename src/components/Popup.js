@@ -14,6 +14,7 @@ export default class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
+  //стрелочная функция привязывает контекст. без нее this = window
   _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       this.close();
